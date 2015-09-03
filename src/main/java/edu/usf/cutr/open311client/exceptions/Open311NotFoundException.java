@@ -25,7 +25,7 @@ public class Open311NotFoundException extends IllegalStateException {
 
   private static final long serialVersionUID = 3984309139124501383L;
 
-  public Open311NotFoundException(String jurisdiction) {
-    super("Open311 couldn't found for jurisdiction id : " + jurisdiction);
+  public Open311NotFoundException() {
+    super("Open311 not found");
   }
 }

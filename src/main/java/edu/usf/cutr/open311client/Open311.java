@@ -19,6 +19,7 @@ import edu.usf.cutr.open311client.io.Open311ConnectionManager;
 import edu.usf.cutr.open311client.models.NameValuePair;
 import edu.usf.cutr.open311client.models.Open311Option;
 import edu.usf.cutr.open311client.models.ServiceDescription;
+import edu.usf.cutr.open311client.models.ServiceDescriptionRequest;
 import edu.usf.cutr.open311client.models.ServiceListRequest;
 import edu.usf.cutr.open311client.models.ServiceListResponse;
 import edu.usf.cutr.open311client.models.ServiceRequest;
@@ -57,7 +58,6 @@ public class Open311 {
     public ServiceListResponse getServiceList(ServiceListRequest serviceListRequest) {
         List<NameValuePair> params = null;
         try {
-            serviceListRequest.setJurisdictionId(open311Option.getJurisdiction());
             params = Open311UrlUtil.prepareNameValuePairs(serviceListRequest);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -65,16 +65,6 @@ public class Open311 {
         String result = connectionManager.getStringResult(Open311UrlUtil.getServiceUrl(open311Option.getBaseUrl(),
                 format), Open311UrlUtil.RequestMethod.GET, params);
         return Open311Parser.parseServices(result);
-    }
-
-    /**
-     * @return service list response without
-     * passing parameter
-     * <p/>
-     * May return generic service list
-     */
-    public ServiceListResponse getServiceList() {
-        return getServiceList(null);
     }
 
     /**
@@ -119,16 +109,15 @@ public class Open311 {
      * @param serviceListRequest takes service request object
      * @return result from open311 endpoint
      */
-    public ServiceDescription getServiceDescription(ServiceListRequest serviceListRequest) {
+    public ServiceDescription getServiceDescription(ServiceDescriptionRequest serviceDescriptionRequest) {
         List<NameValuePair> params = null;
         try {
-            serviceListRequest.setJurisdictionId(open311Option.getJurisdiction());
-            params = Open311UrlUtil.prepareNameValuePairs(serviceListRequest);
+            params = Open311UrlUtil.prepareNameValuePairs(serviceDescriptionRequest);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         String result = connectionManager.getStringResult(Open311UrlUtil.getServiceDescUrl(open311Option.getBaseUrl(),
-                serviceListRequest.getServiceCode(), format), Open311UrlUtil.RequestMethod.GET, params);
+            serviceDescriptionRequest.getServiceCode(), format), Open311UrlUtil.RequestMethod.GET, params);
         return Open311Parser.parseServiceDescription(result);
     }
 

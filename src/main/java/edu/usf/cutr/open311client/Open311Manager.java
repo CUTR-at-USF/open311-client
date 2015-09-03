@@ -16,36 +16,59 @@
 
 package edu.usf.cutr.open311client;
 
-
-import edu.usf.cutr.open311client.exceptions.Open311NotFoundException;
 import edu.usf.cutr.open311client.models.Open311Option;
+import edu.usf.cutr.open311client.models.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Open311 manager design to manage multiple endpoints in one application
+ * 
  * @author Cagri Cetin
  */
 public class Open311Manager {
 
-    private static Map<String, Open311> open311Map = new HashMap<String, Open311>();
+  private static List<Open311> open311List = new ArrayList<Open311>();
 
-    public static Open311 getOpen311ByJurisdiction(String jurisdictionId) {
-
-        if (open311Map.get(jurisdictionId) == null) {
-            throw new Open311NotFoundException(jurisdictionId);
-        } else {
-            return open311Map.get(jurisdictionId);
-        }
+  public static Open311 getDefaultOpen311() {
+    if (open311List.size() == 0) {
+      return null;
+    } else {
+      return open311List.get(0);
     }
+  }
 
-    public static void initOpen311WithOption(Open311Option option) {
-        Open311Factory open311Factory = new Open311Factory();
-        open311Map.put(option.getJurisdiction(), open311Factory.getOpen311(option));
+  public static Open311 getOpen311ByJurisdictionId(String jurisdictionId) {
+    for (Open311 open311 : open311List) {
+      if (jurisdictionId.equals(open311.getJurisdiction())) {
+        return open311;
+      }
     }
+    return null;
+  }
 
-    public static Boolean isOpen311Active(String jurisdictionId){
-        return open311Map.get(jurisdictionId) != null;
+  public static List<Open311> getAllOpen311() {
+    return open311List;
+  }
+
+  public static void initOpen311WithOption(Open311Option option) {
+    Open311Factory open311Factory = new Open311Factory();
+    Open311 open311 = open311Factory.getOpen311(option);
+    open311List.add(open311);
+  }
+
+  public static void initOpen311WithOptions(List<Open311Option> options) {
+    for (Open311Option option : options) {
+      initOpen311WithOption(option);
     }
+  }
+
+  public static boolean isOpen311Exist() {
+    return open311List.size() != 0;
+  }
+  
+  public static boolean isZoneManagedByOpen311(List<Service> serviceList) {
+    return serviceList != null && serviceList.size() > 1;
+  }
 }

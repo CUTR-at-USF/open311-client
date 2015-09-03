@@ -22,7 +22,7 @@ package edu.usf.cutr.open311client.models;
  * @author Cagri Cetin
  */
 
-public class ServiceListRequest {
+public class ServiceDescriptionRequest {
 
   private Double lat;
   private Double lang;
@@ -30,30 +30,21 @@ public class ServiceListRequest {
   private String jurisdictionId;
   private String serviceCode;
 
-  public ServiceListRequest(Double lat, Double lang) {
+  public ServiceDescriptionRequest(Double lat, Double lang, String serviceCode) {
     this.lat = lat;
     this.lang = lang;
+    this.serviceCode = serviceCode;
   }
 
-  public ServiceListRequest(String address) {
-    this.address = address;
-  }
-
-  public ServiceListRequest(Double lat, Double lang, String jurisdictionId) {
+  public ServiceDescriptionRequest(Double lat, Double lang,
+      String jurisdictionId, String serviceCode) {
     this.lat = lat;
     this.lang = lang;
     this.jurisdictionId = jurisdictionId;
+    this.serviceCode = serviceCode;
   }
 
-  public ServiceListRequest(Double lat, Double lang, String address,
-      String jurisdictionId) {
-    this.lat = lat;
-    this.lang = lang;
-    this.address = address;
-    this.jurisdictionId = jurisdictionId;
-  }
-
-  public ServiceListRequest() {
+  public ServiceDescriptionRequest() {
 
   }
 

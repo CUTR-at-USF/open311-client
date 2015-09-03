@@ -45,6 +45,18 @@ public class Open311Option {
     this.open311Type = Open311Type.DEFAULT;
   }
 
+  public Open311Option(String baseUrl, String apiKey, Open311Type open311Type) {
+    this.baseUrl = baseUrl;
+    this.apiKey = apiKey;
+    this.open311Type = open311Type;
+  }
+
+  public Open311Option(String baseUrl, String apiKey) {
+    this.baseUrl = baseUrl;
+    this.apiKey = apiKey;
+    this.open311Type = Open311Type.DEFAULT;
+  }
+
   public String getBaseUrl() {
     return baseUrl;
   }
