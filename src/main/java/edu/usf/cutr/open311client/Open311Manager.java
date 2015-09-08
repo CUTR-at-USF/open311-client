@@ -16,6 +16,7 @@
 
 package edu.usf.cutr.open311client;
 
+import edu.usf.cutr.open311client.models.ClientPrefs;
 import edu.usf.cutr.open311client.models.Open311Option;
 import edu.usf.cutr.open311client.models.Service;
 
@@ -30,6 +31,8 @@ import java.util.List;
 public class Open311Manager {
 
   private static List<Open311> open311List = new ArrayList<Open311>();
+  
+  private static ClientPrefs clientPrefs = new ClientPrefs();
 
   public static Open311 getDefaultOpen311() {
     if (open311List.size() == 0) {
@@ -68,7 +71,21 @@ public class Open311Manager {
     return open311List.size() != 0;
   }
   
-  public static boolean isZoneManagedByOpen311(List<Service> serviceList) {
-    return serviceList != null && serviceList.size() > 1;
+  public static boolean isAreaManagedByOpen311(List<Service> serviceList) {
+    if (serviceList != null && serviceList.size() > 1) {
+      return true;
+    } else if (serviceList != null && serviceList.size() == 1) {
+      Service service = serviceList.get(0);
+      return Boolean.getBoolean(service.getMetadata());
+    }
+    return false;
+  }
+  
+  public static void setDebugMode(boolean mode) {
+    clientPrefs.setDebugMode(mode);
+  }
+  
+  public static void setDryRun(boolean mode) {
+    clientPrefs.setDryRun(mode);
   }
 }
