@@ -1,4 +1,6 @@
-# open311-client
+# open311-client 
+
+[![Build Status](https://travis-ci.org/CUTR-at-USF/open311-client.svg?branch=master)](https://travis-ci.org/CUTR-at-USF/open311-client)
 
 This is a java client to submit issues to Open311 GeoReport v2 compliant systems.
 
