@@ -87,7 +87,7 @@ public class ServiceRequestResponse extends Open311BaseModel {
             String requestId = null;
             try {
                 //Try with request id
-                requestId = jsonObject.getString(Open311Constants.REQUEST_ID);
+                requestId = String.valueOf(jsonObject.get(Open311Constants.REQUEST_ID));
             } catch (JSONException e) {
                 try {
                     requestId = jsonObject.getString(Open311Constants.ID);

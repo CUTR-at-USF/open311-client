@@ -213,6 +213,7 @@ public class UrlConnectionClientImpl implements Open311ConnectionClient {
       httpConnection.disconnect();
     } else {
       throw new IOException("Server returned non-OK status: " + status);
+      //TODO: implement debug mode
     }
 
     return response;

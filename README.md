@@ -37,7 +37,7 @@ Open311Manager.initOpen311WithOption(option);
 ###### 2 - Do an API call
 
 ```
-Open311 open311 = Open311Manager.getOpen311ByJurisdiction(jurisdictionId);
+Open311 open311 = Open311Manager.getDefaultOpen311();
 
 // Returns service list
 ServiceListResponce slr = open311.getServiceList();

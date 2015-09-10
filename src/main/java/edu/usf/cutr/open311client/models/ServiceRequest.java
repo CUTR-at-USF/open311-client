@@ -224,7 +224,6 @@ public class ServiceRequest {
     private String jurisdiction_id;
     private String service_code;
     private String service_name;
-    private String api_key;
     private Double lat;
     private Double lang;
     private String address_string;
@@ -251,11 +250,6 @@ public class ServiceRequest {
 
     public Builder setService_name(String service_name) {
       this.service_name = service_name;
-      return this;
-    }
-
-    public Builder setApi_key(String api_key) {
-      this.api_key = api_key;
       return this;
     }
 
@@ -326,7 +320,7 @@ public class ServiceRequest {
 
     public ServiceRequest createServiceRequest() {
       return new ServiceRequest(jurisdiction_id, service_code, service_name,
-          api_key, lat, lang, address_string, email, device_id, account_id,
+          null, lat, lang, address_string, email, device_id, account_id,
           first_name, last_name, phone, description, summary, media_url, media);
     }
 
