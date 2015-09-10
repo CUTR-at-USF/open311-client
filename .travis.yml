@@ -5,3 +5,9 @@ jdk:
 
 script:
   mvn test
+
+sudo: false
+cache:
+  directories:
+  - $HOME/.m2
+
