@@ -1,3 +1,18 @@
+/*
+* Copyright (C) 2015 University of South Florida (sjbarbeau@gmail.com)
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 package edu.usf.cutr.open311client;
 
 import static org.junit.Assert.assertEquals;
@@ -57,7 +72,7 @@ public class Open311Test {
 
     String serviceCode = serviceListResponse.getServiceList().get(
         0).getService_code();
-    
+
     // Create ServiceDescriptionRequest from the service code
     ServiceDescriptionRequest sdr = new ServiceDescriptionRequest(
         latLong.getLat(), latLong.getLon(), serviceCode);
@@ -86,11 +101,13 @@ public class Open311Test {
     ServiceRequest.Builder builder = new ServiceRequest.Builder();
     ServiceRequest serviceRequest = builder.setDescription(
         "Test Service Request").setService_code(
-            service.getService_code()).setLat(latLong.getLat()).setLang(
-                latLong.getLon()).setFirst_name("Test").setLast_name(
-                    "tester").setEmail("cutr@usf.edu").setAddress_string(
-                        "9389 Silverthorn Rd, Seminole, FL 33777").setService_name(
-                            service.getService_name()).setDevice_id("asd213123").createServiceRequest();
+            service.getService_code()).setLatitude(
+                latLong.getLat()).setLongitude(latLong.getLon()).setFirst_name(
+                    "Test").setLast_name("tester").setEmail(
+                        "cutr@usf.edu").setAddress_string(
+                            "9389 Silverthorn Rd, Seminole, FL 33777").setService_name(
+                                service.getService_name()).setDevice_id(
+                                    "asd213123").createServiceRequest();
 
     // Call postServiceRequest with ServiceRequest
     ServiceRequestResponse requestResponse = open311.postServiceRequest(

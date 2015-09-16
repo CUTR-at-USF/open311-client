@@ -87,6 +87,7 @@ public class UrlConnectionClientImpl implements Open311ConnectionClient {
 
   /**
    * Initialize a HTTP get connection from given url with parameters
+   * 
    * @param requestURL
    * @throws IOException
    */
@@ -98,6 +99,7 @@ public class UrlConnectionClientImpl implements Open311ConnectionClient {
 
   /**
    * Initialize a post connection with given url
+   * 
    * @param requestURL
    * @throws IOException
    */
@@ -213,7 +215,7 @@ public class UrlConnectionClientImpl implements Open311ConnectionClient {
       httpConnection.disconnect();
     } else {
       throw new IOException("Server returned non-OK status: " + status);
-      //TODO: implement debug mode
+      // TODO: implement debug mode
     }
 
     return response;

@@ -29,10 +29,11 @@ import org.json.JSONObject;
  */
 public class ServiceRequestResponse extends Open311BaseModel {
 
-    private JSONObject jsonObject;
-    private Open311Type open311Type;
+  private JSONObject jsonObject;
+  private Open311Type open311Type;
 
-    public ServiceRequestResponse(JSONObject jsonObject, Open311Type open311Type) {
+  public ServiceRequestResponse(JSONObject jsonObject,
+      Open311Type open311Type) {
     this.jsonObject = jsonObject;
     this.open311Type = open311Type;
   }
@@ -41,89 +42,89 @@ public class ServiceRequestResponse extends Open311BaseModel {
     this.open311Type = open311Type;
   }
 
-    public String getServiceRequestId() {
-        if (open311Type.equals(Open311Type.SEECLICKFIX)) {
-            return getJsonString(Open311Constants.ID);
-        } else {
-            return getJsonString(Open311Constants.REQUEST_ID);
+  public String getServiceRequestId() {
+    if (open311Type.equals(Open311Type.SEECLICKFIX)) {
+      return getJsonString(Open311Constants.ID);
+    } else {
+      return getJsonString(Open311Constants.REQUEST_ID);
+    }
+  }
+
+  public String getToken() {
+    return getJsonString(Open311Constants.TOKEN);
+  }
+
+  public String getMessage() {
+
+    if (this.isSuccess()) {
+      return Open311Constants.M_REPORT_SUCCESS;
+    } else {
+      return this.getErrorMessage();
+    }
+  }
+
+  public String getErrorMessage() {
+    if (jsonObject == null) {
+      return super.getResultDescription();
+    } else {
+      if (open311Type.equals(Open311Type.SEECLICKFIX)) {
+        String message = getJsonStringFromArray(Open311Constants.BASE);
+        if ("".equals(message)) {
+          message = getJsonStringFromArray(Open311Constants.DUPLICATE);
         }
+        return message;
+      } else {
+        return getJsonString(Open311Constants.DESCRIPTION);
+      }
     }
+  }
 
-    public String getToken() {
-        return getJsonString(Open311Constants.TOKEN);
-    }
+  @Override
+  public Boolean isSuccess() {
 
-    public String getMessage() {
-
-        if (this.isSuccess()) {
-            return Open311Constants.M_REPORT_SUCCESS;
-        } else {
-            return this.getErrorMessage();
-        }
-    }
-
-    public String getErrorMessage() {
-        if (jsonObject == null) {
-            return super.getResultDescription();
-        } else {
-            if (open311Type.equals(Open311Type.SEECLICKFIX)) {
-                String message = getJsonStringFromArray(Open311Constants.BASE);
-                if ("".equals(message)){
-                    message = getJsonStringFromArray(Open311Constants.DUPLICATE);
-                }
-                return message;
-            } else {
-                return getJsonString(Open311Constants.DESCRIPTION);
-            }
-        }
-    }
-
-    @Override
-    public Boolean isSuccess() {
-
-        if (jsonObject == null) {
-            return super.isSuccess();
-        } else {
-            String requestId = null;
-            try {
-                //Try with request id
-                requestId = String.valueOf(jsonObject.get(Open311Constants.REQUEST_ID));
-            } catch (JSONException e) {
-                try {
-                    requestId = jsonObject.getString(Open311Constants.ID);
-                } catch (JSONException e1) {
-                    e1.printStackTrace();
-                }
-            }
-            if (requestId == null) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-    }
-
-    private String getJsonString(String key) {
-        String value = null;
+    if (jsonObject == null) {
+      return super.isSuccess();
+    } else {
+      String requestId = null;
+      try {
+        // Try with request id
+        requestId = String.valueOf(jsonObject.get(Open311Constants.REQUEST_ID));
+      } catch (JSONException e) {
         try {
-            value = jsonObject.getString(key);
-        } catch (JSONException e) {
-            e.printStackTrace();
+          requestId = jsonObject.getString(Open311Constants.ID);
+        } catch (JSONException e1) {
+          e1.printStackTrace();
         }
-        return value;
+      }
+      if (requestId == null) {
+        return false;
+      } else {
+        return true;
+      }
     }
+  }
 
-    private String getJsonStringFromArray(String key) {
-        StringBuilder sb = new StringBuilder();
-        try {
-            JSONArray jsonArray = jsonObject.getJSONArray(key);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                sb.append(jsonArray.getString(i)).append(" ");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return sb.toString();
+  private String getJsonString(String key) {
+    String value = null;
+    try {
+      value = jsonObject.getString(key);
+    } catch (JSONException e) {
+      e.printStackTrace();
     }
+    return value;
+  }
+
+  private String getJsonStringFromArray(String key) {
+    StringBuilder sb = new StringBuilder();
+    try {
+      JSONArray jsonArray = jsonObject.getJSONArray(key);
+
+      for (int i = 0; i < jsonArray.length(); i++) {
+        sb.append(jsonArray.getString(i)).append(" ");
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+    return sb.toString();
+  }
 }

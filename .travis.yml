@@ -1,11 +1,5 @@
 language: java
 
-jdk:
-- openjdk6
-
-script:
-  mvn test
-
 sudo: false
 cache:
   directories:

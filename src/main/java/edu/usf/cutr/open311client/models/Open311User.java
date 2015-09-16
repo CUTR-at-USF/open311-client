@@ -1,4 +1,3 @@
-
 /*
 * Copyright (C) 2014 University of South Florida (sjbarbeau@gmail.com)
 *

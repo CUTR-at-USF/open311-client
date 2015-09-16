@@ -142,11 +142,12 @@ public class Open311UrlUtil {
       nameValuePairs.add(new NameValuePair("jurisdiction_id",
           serviceRequest.getJurisdiction_id()));
     } else
-      if (serviceRequest.getLat() != null && serviceRequest.getLang() != null) {
+      if (serviceRequest.getLatitude() != null
+          && serviceRequest.getLongitude() != null) {
       nameValuePairs.add(
-          new NameValuePair("lat", serviceRequest.getLat().toString()));
+          new NameValuePair("lat", serviceRequest.getLatitude().toString()));
       nameValuePairs.add(
-          new NameValuePair("long", serviceRequest.getLang().toString()));
+          new NameValuePair("long", serviceRequest.getLongitude().toString()));
     }
 
     if (serviceRequest.getAddress_string() != null) {
@@ -196,12 +197,12 @@ public class Open311UrlUtil {
       nameValuePairs.add(new NameValuePair("jurisdiction_id",
           serviceListRequest.getJurisdictionId()));
     } else
-      if (serviceListRequest.getLat() != null
-          && serviceListRequest.getLang() != null) {
-      nameValuePairs.add(
-          new NameValuePair("lat", serviceListRequest.getLat().toString()));
-      nameValuePairs.add(
-          new NameValuePair("long", serviceListRequest.getLang().toString()));
+      if (serviceListRequest.getLatitude() != null
+          && serviceListRequest.getLongitude() != null) {
+      nameValuePairs.add(new NameValuePair("lat",
+          serviceListRequest.getLatitude().toString()));
+      nameValuePairs.add(new NameValuePair("long",
+          serviceListRequest.getLongitude().toString()));
     }
 
     return nameValuePairs;
@@ -223,12 +224,12 @@ public class Open311UrlUtil {
       nameValuePairs.add(new NameValuePair("jurisdiction_id",
           serviceDescriptionRequest.getJurisdictionId()));
     } else
-      if (serviceDescriptionRequest.getLat() != null
-          && serviceDescriptionRequest.getLang() != null) {
+      if (serviceDescriptionRequest.getLatitude() != null
+          && serviceDescriptionRequest.getLongitude() != null) {
       nameValuePairs.add(new NameValuePair("lat",
-          serviceDescriptionRequest.getLat().toString()));
+          serviceDescriptionRequest.getLatitude().toString()));
       nameValuePairs.add(new NameValuePair("long",
-          serviceDescriptionRequest.getLang().toString()));
+          serviceDescriptionRequest.getLongitude().toString()));
     }
     return nameValuePairs;
   }

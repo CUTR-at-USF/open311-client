@@ -18,8 +18,9 @@ package edu.usf.cutr.open311client.constants;
 
 /**
  * Separation of different open311 implementations
+ * 
  * @author Cagri Cetin
  */
 public enum Open311Type {
-    DEFAULT, SEECLICKFIX
+  DEFAULT, SEECLICKFIX
 }

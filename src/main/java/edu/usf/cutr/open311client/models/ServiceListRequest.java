@@ -24,31 +24,32 @@ package edu.usf.cutr.open311client.models;
 
 public class ServiceListRequest {
 
-  private Double lat;
-  private Double lang;
+  private Double latitude;
+  private Double longitude;
   private String address;
   private String jurisdictionId;
   private String serviceCode;
 
-  public ServiceListRequest(Double lat, Double lang) {
-    this.lat = lat;
-    this.lang = lang;
+  public ServiceListRequest(Double latitude, Double longitude) {
+    this.latitude = latitude;
+    this.longitude = longitude;
   }
 
   public ServiceListRequest(String address) {
     this.address = address;
   }
 
-  public ServiceListRequest(Double lat, Double lang, String jurisdictionId) {
-    this.lat = lat;
-    this.lang = lang;
+  public ServiceListRequest(Double latitude, Double longitude,
+      String jurisdictionId) {
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.jurisdictionId = jurisdictionId;
   }
 
-  public ServiceListRequest(Double lat, Double lang, String address,
+  public ServiceListRequest(Double latitude, Double longitude, String address,
       String jurisdictionId) {
-    this.lat = lat;
-    this.lang = lang;
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.address = address;
     this.jurisdictionId = jurisdictionId;
   }
@@ -57,20 +58,20 @@ public class ServiceListRequest {
 
   }
 
-  public Double getLat() {
-    return lat;
+  public Double getLatitude() {
+    return latitude;
   }
 
-  public void setLat(Double lat) {
-    this.lat = lat;
+  public void setLatitude(Double latitude) {
+    this.latitude = latitude;
   }
 
-  public Double getLang() {
-    return lang;
+  public Double getLongitude() {
+    return longitude;
   }
 
-  public void setLang(Double lang) {
-    this.lang = lang;
+  public void setLongitude(Double longitude) {
+    this.longitude = longitude;
   }
 
   public String getAddress() {

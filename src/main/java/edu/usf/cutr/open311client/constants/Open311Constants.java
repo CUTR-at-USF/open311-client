@@ -18,32 +18,33 @@ package edu.usf.cutr.open311client.constants;
 
 /**
  * Constants for open311
+ * 
  * @author Cagri Cetin
  */
 public class Open311Constants {
-    public static final int WS_TIMEOUT = 6000;
+  public static final int WS_TIMEOUT = 6000;
 
-    public static final String RESULT_OK = "200";
-    public static final String RESULT_FAIL = "404";
+  public static final String RESULT_OK = "200";
+  public static final String RESULT_FAIL = "404";
 
-    //Service Request Response JSON Attributes
-    public static final String STATUS = "status";
-    public static final String DESCRIPTION = "description";
-    public static final String BASE = "base";
-    public static final String DUPLICATE = "duplicate";
-    public static final String ID = "id";
-    public static final String REQUEST_ID = "service_request_id";
-    public static final String TOKEN = "token";
+  // Service Request Response JSON Attributes
+  public static final String STATUS = "status";
+  public static final String DESCRIPTION = "description";
+  public static final String BASE = "base";
+  public static final String DUPLICATE = "duplicate";
+  public static final String ID = "id";
+  public static final String REQUEST_ID = "service_request_id";
+  public static final String TOKEN = "token";
 
-    //Open311 generic messages
-    public static final String M_REPORT_SUCCESS = "Your issue has been successfully reported";
-    public static final String M_GENERIC_ERROR = "Error occurred.";
-    public static final String M_GENERIC_ISSUE_TYPE = "Please select an issue type";
-    public static final String M_GENERIC_FIRST_NAME = "First name cannot be empty.";
-    public static final String M_GENERIC_LAST_NAME = "Last name cannot be empty.";
-    public static final String M_GENERIC_EMAIL = "Email cannot be empty.";
-    public static final String M_GENERIC_LOCATION = "Address cannot be empty.";
-    public static final String M_GENERIC_DESC = "Description cannot be empty.";
-    public static final String M_GENERIC_MANDATORY_QUESTION = "Required questions should be answered.";
+  // Open311 generic messages
+  public static final String M_REPORT_SUCCESS = "Your issue has been successfully reported";
+  public static final String M_GENERIC_ERROR = "Error occurred.";
+  public static final String M_GENERIC_ISSUE_TYPE = "Please select an issue type";
+  public static final String M_GENERIC_FIRST_NAME = "First name cannot be empty.";
+  public static final String M_GENERIC_LAST_NAME = "Last name cannot be empty.";
+  public static final String M_GENERIC_EMAIL = "Email cannot be empty.";
+  public static final String M_GENERIC_LOCATION = "Address cannot be empty.";
+  public static final String M_GENERIC_DESC = "Description cannot be empty.";
+  public static final String M_GENERIC_MANDATORY_QUESTION = "Required questions should be answered.";
 
 }

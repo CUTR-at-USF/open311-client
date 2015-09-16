@@ -24,22 +24,23 @@ package edu.usf.cutr.open311client.models;
 
 public class ServiceDescriptionRequest {
 
-  private Double lat;
-  private Double lang;
+  private Double latitude;
+  private Double longitude;
   private String address;
   private String jurisdictionId;
   private String serviceCode;
 
-  public ServiceDescriptionRequest(Double lat, Double lang, String serviceCode) {
-    this.lat = lat;
-    this.lang = lang;
+  public ServiceDescriptionRequest(Double latitude, Double longitude,
+      String serviceCode) {
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.serviceCode = serviceCode;
   }
 
-  public ServiceDescriptionRequest(Double lat, Double lang,
+  public ServiceDescriptionRequest(Double latitude, Double longitude,
       String jurisdictionId, String serviceCode) {
-    this.lat = lat;
-    this.lang = lang;
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.jurisdictionId = jurisdictionId;
     this.serviceCode = serviceCode;
   }
@@ -48,20 +49,20 @@ public class ServiceDescriptionRequest {
 
   }
 
-  public Double getLat() {
-    return lat;
+  public Double getLatitude() {
+    return latitude;
   }
 
-  public void setLat(Double lat) {
-    this.lat = lat;
+  public void setLatitude(Double lat) {
+    this.latitude = lat;
   }
 
-  public Double getLang() {
-    return lang;
+  public Double getLongitude() {
+    return longitude;
   }
 
-  public void setLang(Double lang) {
-    this.lang = lang;
+  public void setLongitude(Double longitude) {
+    this.longitude = longitude;
   }
 
   public String getAddress() {

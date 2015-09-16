@@ -29,8 +29,8 @@ public class ServiceRequest {
   private String service_code;
   private String service_name;
   private String api_key;
-  private Double lat;
-  private Double lang;
+  private Double latitude;
+  private Double longitude;
   private String address_string;
   private String email;
   private String device_id;
@@ -53,7 +53,7 @@ public class ServiceRequest {
   }
 
   public ServiceRequest(String jurisdiction_id, String service_code,
-      String service_name, String api_key, Double lat, Double lang,
+      String service_name, String api_key, Double latitude, Double longitude,
       String address_string, String email, String device_id, String account_id,
       String first_name, String last_name, String phone, String description,
       String summary, String media_url, File media) {
@@ -61,8 +61,8 @@ public class ServiceRequest {
     this.service_code = service_code;
     this.service_name = service_name;
     this.api_key = api_key;
-    this.lat = lat;
-    this.lang = lang;
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.address_string = address_string;
     this.email = email;
     this.device_id = device_id;
@@ -100,20 +100,20 @@ public class ServiceRequest {
     this.api_key = api_key;
   }
 
-  public Double getLat() {
-    return lat;
+  public Double getLatitude() {
+    return latitude;
   }
 
-  public void setLat(Double lat) {
-    this.lat = lat;
+  public void setLatitude(Double latitude) {
+    this.latitude = latitude;
   }
 
-  public Double getLang() {
-    return lang;
+  public Double getLongitude() {
+    return longitude;
   }
 
-  public void setLang(Double lang) {
-    this.lang = lang;
+  public void setLongitude(Double longitude) {
+    this.longitude = longitude;
   }
 
   public String getAddress_string() {
@@ -224,8 +224,8 @@ public class ServiceRequest {
     private String jurisdiction_id;
     private String service_code;
     private String service_name;
-    private Double lat;
-    private Double lang;
+    private Double latitude;
+    private Double longitude;
     private String address_string;
     private String email;
     private String device_id;
@@ -253,13 +253,13 @@ public class ServiceRequest {
       return this;
     }
 
-    public Builder setLat(Double lat) {
-      this.lat = lat;
+    public Builder setLatitude(Double latitude) {
+      this.latitude = latitude;
       return this;
     }
 
-    public Builder setLang(Double lang) {
-      this.lang = lang;
+    public Builder setLongitude(Double longitude) {
+      this.longitude = longitude;
       return this;
     }
 
@@ -320,7 +320,7 @@ public class ServiceRequest {
 
     public ServiceRequest createServiceRequest() {
       return new ServiceRequest(jurisdiction_id, service_code, service_name,
-          null, lat, lang, address_string, email, device_id, account_id,
+          null, latitude, longitude, address_string, email, device_id, account_id,
           first_name, last_name, phone, description, summary, media_url, media);
     }
 
