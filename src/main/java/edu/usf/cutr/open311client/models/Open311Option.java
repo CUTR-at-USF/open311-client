@@ -29,13 +29,15 @@ public class Open311Option {
   private String apiKey;
   private String jurisdiction;
   private Open311Type open311Type;
+  private String tag;
 
   public Open311Option(String baseUrl, String apiKey, String jurisdiction,
-      Open311Type open311Type) {
+      Open311Type open311Type, String tag) {
     this.baseUrl = baseUrl;
     this.apiKey = apiKey;
     this.jurisdiction = jurisdiction;
     this.open311Type = open311Type;
+    this.tag = tag;
   }
 
   public Open311Option(String baseUrl, String apiKey, String jurisdiction) {
@@ -87,5 +89,13 @@ public class Open311Option {
 
   public void setOpen311Type(Open311Type open311Type) {
     this.open311Type = open311Type;
+  }
+
+  public String getTag() {
+    return tag;
+  }
+
+  public void setTag(String tag) {
+    this.tag = tag;
   }
 }

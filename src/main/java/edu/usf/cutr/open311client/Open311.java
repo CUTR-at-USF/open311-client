@@ -147,6 +147,10 @@ public class Open311 {
   public String getApiKey() {
     return open311Option.getApiKey();
   }
+  
+  public String getTag() {
+    return open311Option.getTag();
+  }
 
   public String getFormat() {
     return format;

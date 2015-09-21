@@ -50,6 +50,15 @@ public class Open311Manager {
     }
     return null;
   }
+  
+  public static Open311 getOpen311ByTag(String tag) {
+    for (Open311 open311 : open311List) {
+      if (tag.equals(open311.getTag())) {
+        return open311;
+      }
+    }
+    return null;
+  }
 
   public static List<Open311> getAllOpen311() {
     return open311List;
