@@ -15,6 +15,9 @@
 */
 package edu.usf.cutr.open311client;
 
+import edu.usf.cutr.open311client.constants.Open311Constants;
+import edu.usf.cutr.open311client.constants.Open311Type;
+import edu.usf.cutr.open311client.debug.Logger;
 import edu.usf.cutr.open311client.io.Open311ConnectionManager;
 import edu.usf.cutr.open311client.models.NameValuePair;
 import edu.usf.cutr.open311client.models.Open311Option;
@@ -40,6 +43,8 @@ public class Open311 {
   private Open311Option open311Option;
   private String format = "json";
 
+  private Logger logger = Logger.getLogger();
+
   private Open311ConnectionManager connectionManager = new Open311ConnectionManager();
 
   /**
@@ -63,9 +68,12 @@ public class Open311 {
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
     }
+    logger.debug("call getServiceList params: " + params);
     String result = connectionManager.getStringResult(
         Open311UrlUtil.getServiceUrl(open311Option.getBaseUrl(), format),
         Open311UrlUtil.RequestMethod.GET, params);
+    logger.debug("call getServiceList result: " + result);
+
     return Open311Parser.parseServices(result);
   }
 
@@ -84,11 +92,23 @@ public class Open311 {
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
     }
-    String result = connectionManager.getStringResult(
-        Open311UrlUtil.getServiceRequestUrl(open311Option.getBaseUrl(), format),
-        Open311UrlUtil.RequestMethod.POST, params, serviceRequest.getMedia());
-    return Open311Parser.parseRequestResponse(result,
-        open311Option.getOpen311Type());
+
+    if (!logger.isDryRun()) {
+
+      logger.debug("call postServiceRequest params: " + params);
+      String result = connectionManager.getStringResult(
+          Open311UrlUtil.getServiceRequestUrl(open311Option.getBaseUrl(),
+              format),
+          Open311UrlUtil.RequestMethod.POST, params, serviceRequest.getMedia());
+      logger.debug("call postServiceRequest result: " + result);
+      return Open311Parser.parseRequestResponse(result,
+          open311Option.getOpen311Type());
+    } else {
+      logger.debug("Dry call postServiceRequest params: " + params);
+      ServiceRequestResponse srr = new ServiceRequestResponse(Open311Type.DEFAULT);
+      srr.setResultCode(Open311Constants.RESULT_OK);
+      return srr;
+    }
   }
 
   /**
@@ -105,9 +125,11 @@ public class Open311 {
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
     }
+    logger.debug("call getServiceRequest params: " + params);
     String result = connectionManager.getStringResult(
         Open311UrlUtil.getServiceRequestUrl(open311Option.getBaseUrl(), format),
         Open311UrlUtil.RequestMethod.GET, params);
+    logger.debug("call getServiceRequest result: " + result);
     return Open311Parser.parseRequestResponse(result,
         open311Option.getOpen311Type());
   }
@@ -126,10 +148,12 @@ public class Open311 {
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
     }
+    logger.debug("call getServiceDescription params: " + params);
     String result = connectionManager.getStringResult(
         Open311UrlUtil.getServiceDescUrl(open311Option.getBaseUrl(),
             serviceDescriptionRequest.getServiceCode(), format),
         Open311UrlUtil.RequestMethod.GET, params);
+    logger.debug("call getServiceDescription result: " + result);
     return Open311Parser.parseServiceDescription(result);
   }
 
@@ -147,7 +171,7 @@ public class Open311 {
   public String getApiKey() {
     return open311Option.getApiKey();
   }
-  
+
   public String getTag() {
     return open311Option.getTag();
   }

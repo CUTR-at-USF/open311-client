@@ -16,7 +16,8 @@
 
 package edu.usf.cutr.open311client;
 
-import edu.usf.cutr.open311client.models.ClientPrefs;
+import edu.usf.cutr.open311client.debug.Logger;
+import edu.usf.cutr.open311client.debug.Logger.LogLevel;
 import edu.usf.cutr.open311client.models.Open311Option;
 import edu.usf.cutr.open311client.models.Service;
 
@@ -31,8 +32,8 @@ import java.util.List;
 public class Open311Manager {
 
   private static List<Open311> open311List = new ArrayList<Open311>();
-  
-  private static ClientPrefs clientPrefs = new ClientPrefs();
+
+  private static Logger logger = Logger.getLogger();
 
   public static Open311 getDefaultOpen311() {
     if (open311List.size() == 0) {
@@ -50,7 +51,7 @@ public class Open311Manager {
     }
     return null;
   }
-  
+
   public static Open311 getOpen311ByTag(String tag) {
     for (Open311 open311 : open311List) {
       if (tag.equals(open311.getTag())) {
@@ -68,6 +69,8 @@ public class Open311Manager {
     Open311Factory open311Factory = new Open311Factory();
     Open311 open311 = open311Factory.getOpen311(option);
     open311List.add(open311);
+
+    logger.info("Open311 initilized with " + open311.getBaseUrl());
   }
 
   public static void initOpen311WithOptions(List<Open311Option> options) {
@@ -75,26 +78,40 @@ public class Open311Manager {
       initOpen311WithOption(option);
     }
   }
+  
+  public static void clearOpen311(){
+    open311List.clear();
+    logger.info("clearOpen311");
+  }
 
   public static boolean isOpen311Exist() {
     return open311List.size() != 0;
   }
-  
+
   public static boolean isAreaManagedByOpen311(List<Service> serviceList) {
+    boolean result = false;
     if (serviceList != null && serviceList.size() > 1) {
-      return true;
+      result = true;
     } else if (serviceList != null && serviceList.size() == 1) {
       Service service = serviceList.get(0);
-      return Boolean.getBoolean(service.getMetadata());
+      result = Boolean.getBoolean(service.getMetadata());
     }
-    return false;
+    logger.debug("call isAreaManagedByOpen311: " + result);
+    return result;
   }
-  
+
   public static void setDebugMode(boolean mode) {
-    clientPrefs.setDebugMode(mode);
+    if (mode) {
+      logger.setLogLevel(LogLevel.DEBUG);
+      logger.info("Log level changed: " + LogLevel.DEBUG);
+    } else {
+      logger.setLogLevel(LogLevel.INFO);
+      logger.info("Log level changed: " + LogLevel.INFO);
+    }
   }
-  
+
   public static void setDryRun(boolean mode) {
-    clientPrefs.setDryRun(mode);
+    logger.setDryRun(mode);
+    logger.info("Dry run mode changed: " + mode);
   }
 }

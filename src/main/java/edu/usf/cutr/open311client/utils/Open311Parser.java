@@ -17,6 +17,7 @@ package edu.usf.cutr.open311client.utils;
 
 import edu.usf.cutr.open311client.constants.Open311Constants;
 import edu.usf.cutr.open311client.constants.Open311Type;
+import edu.usf.cutr.open311client.debug.Logger;
 import edu.usf.cutr.open311client.models.Service;
 import edu.usf.cutr.open311client.models.ServiceDescription;
 import edu.usf.cutr.open311client.models.ServiceListResponse;
@@ -38,6 +39,8 @@ import java.util.ArrayList;
  * @author Cagri Cetin
  */
 public class Open311Parser {
+  
+  private static Logger logger = Logger.getLogger();
 
   /**
    * Parses json string result for service list
@@ -60,7 +63,7 @@ public class Open311Parser {
       slr.setServiceList(services);
       slr.setResultCode(Open311Constants.RESULT_OK);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.error(e);
     }
     return slr;
   }
@@ -83,7 +86,7 @@ public class Open311Parser {
       serviceDescription = om.readValue(json, ServiceDescription.class);
       serviceDescription.setResultCode(Open311Constants.RESULT_OK);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.error(e);
     }
     return serviceDescription;
   }
@@ -114,17 +117,17 @@ public class Open311Parser {
         response.setResultCode(Open311Constants.RESULT_FAIL);
       }
     } catch (JSONException e) {
+      logger.error(e);
       try {
         JSONObject jsonObject = new JSONObject(json);
         response = new ServiceRequestResponse(jsonObject, open311Type);
 
       } catch (JSONException e1) {
-        e1.printStackTrace();
+        logger.error(e);
         response = new ServiceRequestResponse(open311Type);
         response.setResultCode(Open311Constants.RESULT_FAIL);
         response.setResultDescription(e.getMessage());
       }
-      e.printStackTrace();
     }
     return response;
   }

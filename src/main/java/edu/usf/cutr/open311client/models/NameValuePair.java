@@ -47,4 +47,11 @@ public class NameValuePair {
     this.value = value;
   }
 
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("name:").append(name);
+    sb.append(" - ").append("value:").append(value);
+    return sb.toString();
+  }
 }

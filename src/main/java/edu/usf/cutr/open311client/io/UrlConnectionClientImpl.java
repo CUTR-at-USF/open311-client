@@ -16,6 +16,7 @@
 
 package edu.usf.cutr.open311client.io;
 
+import edu.usf.cutr.open311client.debug.Logger;
 import edu.usf.cutr.open311client.models.NameValuePair;
 import edu.usf.cutr.open311client.utils.Open311UrlUtil;
 
@@ -35,6 +36,8 @@ import java.util.List;
 
 public class UrlConnectionClientImpl implements Open311ConnectionClient {
 
+  private Logger logger = Logger.getLogger();
+
   private final String boundary = "===" + System.currentTimeMillis() + "===";
 
   private static final String LINE_FEED = "\r\n";
@@ -50,6 +53,8 @@ public class UrlConnectionClientImpl implements Open311ConnectionClient {
 
     initGetConnection(url + Open311UrlUtil.nameValuePairsToParams(params));
 
+    logger.debug("getMethod with url: " + url
+        + Open311UrlUtil.nameValuePairsToParams(params));
     ArrayList<String> responseList = finishConnection();
 
     return getResponseAsString(responseList);
@@ -64,9 +69,14 @@ public class UrlConnectionClientImpl implements Open311ConnectionClient {
 
     appendFinishHeader();
 
-    ArrayList<String> responseList = finishConnection();
+    logger.debug("postMethod url: " + url);
+    logger.debug("postMethod params: " + params);
 
-    return getResponseAsString(responseList);
+    ArrayList<String> responseList = finishConnection();
+    String result = getResponseAsString(responseList);
+    logger.debug("postMethod result: " + result);
+    
+    return result;
   }
 
   @Override
@@ -79,10 +89,16 @@ public class UrlConnectionClientImpl implements Open311ConnectionClient {
     appendFilePart("media", file);
 
     appendFinishHeader();
+    
+    logger.debug("postMethod with file and url: " + url);
+    logger.debug("postMethod with file params: " + params);
 
     ArrayList<String> responseList = finishConnection();
 
-    return getResponseAsString(responseList);
+    String result = getResponseAsString(responseList);
+    logger.debug("postMethod with file result: " + result);
+    
+    return result;
   }
 
   /**

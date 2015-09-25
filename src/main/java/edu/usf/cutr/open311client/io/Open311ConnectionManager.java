@@ -16,6 +16,7 @@
 
 package edu.usf.cutr.open311client.io;
 
+import edu.usf.cutr.open311client.debug.Logger;
 import edu.usf.cutr.open311client.models.NameValuePair;
 import edu.usf.cutr.open311client.utils.Open311UrlUtil;
 
@@ -61,7 +62,7 @@ public class Open311ConnectionManager {
       }
 
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.getLogger().error(e);
     }
 
     return result;
