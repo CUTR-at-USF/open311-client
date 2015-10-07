@@ -1,8 +1,4 @@
-# open311-client 
-
-[![Build Status](https://travis-ci.org/CUTR-at-USF/open311-client.svg?branch=master)](https://travis-ci.org/CUTR-at-USF/open311-client)
-
-[ ![Download](https://api.bintray.com/packages/cutr-at-usf/cutr-mvn-repo/open311client/images/download.svg) ](https://bintray.com/cutr-at-usf/cutr-mvn-repo/open311client/_latestVersion)
+# open311-client [![Build Status](https://travis-ci.org/CUTR-at-USF/open311-client.svg?branch=master)](https://travis-ci.org/CUTR-at-USF/open311-client) [ ![Download](https://api.bintray.com/packages/cutr-at-usf/cutr-mvn-repo/open311client/images/download.svg) ](https://bintray.com/cutr-at-usf/cutr-mvn-repo/open311client/_latestVersion)
 
 This is a java client to submit issues to Open311 GeoReport v2 compliant systems.
 
@@ -20,7 +16,40 @@ This is a java client to submit issues to Open311 GeoReport v2 compliant systems
 
 ###### Maven
 ```
-TODO: maven repo
+<?xml version="1.0" encoding="UTF-8" ?>
+<settings
+	xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd'
+	xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+
+	<profiles>
+		<profile>
+			<repositories>
+				<repository>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<id>central</id>
+					<name>bintray</name>
+					<url>http://jcenter.bintray.com</url>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<id>central</id>
+					<name>bintray-plugins</name>
+					<url>http://jcenter.bintray.com</url>
+				</pluginRepository>
+			</pluginRepositories>
+			<id>bintray</id>
+		</profile>
+	</profiles>
+	<activeProfiles>
+		<activeProfile>bintray</activeProfile>
+	</activeProfiles>
+</settings>
 ```
 
 ###### Gradle
@@ -33,6 +62,37 @@ dependencies {
 	compile 'edu.usf.cutr:open311client:1.0.0'
 }
 ```
+
+### Publishing
+
+This is the steps for publishing the `open311-client` on `jcenter` repository.
+
+###### 1 - Create an account on [Bintray](https://bintray.com/).
+###### 2 - Setup your pom.xml
+We need to specify the URL from which to distribute your project. 
+```
+<distributionManagement>
+  <repository>
+      <id>maven-example-id</id>
+      <url>https://api.bintray.com/maven/testaccount/maven-repo/maven-example/;publish=1</url>
+  </repository>
+</distributionManagement>
+```
+
+###### 3 - Setup your setting.xml
+We need to provide Bintray username and API Key to the Maven `settings.xml` file.
+
+```
+<server>
+  <id>maven-example-id</id>
+  <username>testaccount</username>
+  <password>***testaccount-secret-api-key***</password>
+</server>
+```
+
+###### 4 - Run maven deploy
+
+Finally, we can run ```mvn deploy``` to complete publishing.
 
 ### Usage
 
@@ -59,6 +119,8 @@ ServiceDescription sd = open311.getServiceDescription(serviceListRequest);
 ServiceRequestResponse srr = open311.postServiceRequest(serviceRequest);
 
 ```
+
+
 
 ### License 
 
