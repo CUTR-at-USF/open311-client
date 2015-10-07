@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/CUTR-at-USF/open311-client.svg?branch=master)](https://travis-ci.org/CUTR-at-USF/open311-client)
 
+[ ![Download](https://api.bintray.com/packages/cutr-at-usf/cutr-mvn-repo/open311client/images/download.svg) ](https://bintray.com/cutr-at-usf/cutr-mvn-repo/open311client/_latestVersion)
+
 This is a java client to submit issues to Open311 GeoReport v2 compliant systems.
 
 ### Features:
@@ -23,7 +25,13 @@ TODO: maven repo
 
 ###### Gradle
 ```
-TODO: gradle repo
+repositories {
+    jcenter()
+}
+
+dependencies {
+	compile 'edu.usf.cutr:open311client:1.0.0'
+}
 ```
 
 ### Usage

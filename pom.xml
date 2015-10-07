@@ -4,7 +4,7 @@
 
 	<groupId>edu.usf.cutr</groupId>
 	<artifactId>open311client</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>open311client</name>
@@ -13,6 +13,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>CagriMaven</id>
+			<url>https://api.bintray.com/maven/cutr-at-usf/cutr-mvn-repo/open311client/;publish=1</url>
+		</repository>
+	</distributionManagement>
 
 	<dependencies>
 		<dependency>
