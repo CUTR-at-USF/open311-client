@@ -60,7 +60,7 @@ ServiceRequestResponse srr = open311.postServiceRequest(serviceRequest);
 
 ```
 
-### Licance 
+### License 
 
 ```
 /*
