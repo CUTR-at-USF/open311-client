@@ -21,6 +21,8 @@ import edu.usf.cutr.open311client.models.Open311Option;
 import edu.usf.cutr.open311client.models.Service;
 import edu.usf.cutr.open311client.models.ServiceDescription;
 import edu.usf.cutr.open311client.models.ServiceDescriptionRequest;
+import edu.usf.cutr.open311client.models.ServiceInfoRequest;
+import edu.usf.cutr.open311client.models.ServiceInfoResponse;
 import edu.usf.cutr.open311client.models.ServiceListRequest;
 import edu.usf.cutr.open311client.models.ServiceListResponse;
 import edu.usf.cutr.open311client.models.ServiceRequest;
@@ -38,6 +40,8 @@ public class Open311Test {
     Open311Option option = new Open311Option(TestConstants.ENDPOINT,
         TestConstants.API_KEY);
     Open311Manager.initOpen311WithOption(option);
+    Open311Manager.setDebugMode(true);
+    Open311Manager.setDryRun(true);
     open311 = Open311Manager.getDefaultOpen311();
   }
 
@@ -113,5 +117,21 @@ public class Open311Test {
     ServiceRequestResponse requestResponse = open311.postServiceRequest(
         serviceRequest);
     assertEquals(requestResponse.isSuccess(), true);
+  }
+  
+  /**
+   * Test the GetServiceInfo method
+   */
+  @Test
+  public void testOpen311GetServiceInfo() {
+    LatLong latLong = TestUtils.getRandomLocation();
+    // Create ServiceInfoRequest with Lat and Lon
+    // Alternatively jurisdictionId also could be used
+    ServiceInfoRequest sir = new ServiceInfoRequest(latLong.getLat(),
+        latLong.getLon());
+    sir.setServiceRequestId("231155");
+    // Call service info with ServiceInfoRequest
+    ServiceInfoResponse serviceInfoResponse = open311.getServiceRequest(sir);
+    assertEquals(serviceInfoResponse.isSuccess(), true);
   }
 }

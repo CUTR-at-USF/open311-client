@@ -20,6 +20,8 @@ import edu.usf.cutr.open311client.constants.Open311Type;
 import edu.usf.cutr.open311client.debug.Logger;
 import edu.usf.cutr.open311client.models.Service;
 import edu.usf.cutr.open311client.models.ServiceDescription;
+import edu.usf.cutr.open311client.models.ServiceInfo;
+import edu.usf.cutr.open311client.models.ServiceInfoResponse;
 import edu.usf.cutr.open311client.models.ServiceListResponse;
 import edu.usf.cutr.open311client.models.ServiceRequestResponse;
 
@@ -39,7 +41,7 @@ import java.util.ArrayList;
  * @author Cagri Cetin
  */
 public class Open311Parser {
-  
+
   private static Logger logger = Logger.getLogger();
 
   /**
@@ -55,6 +57,7 @@ public class Open311Parser {
     }
 
     ObjectMapper om = new ObjectMapper();
+
     ArrayList<Service> services;
     ServiceListResponse slr = new ServiceListResponse();
     try {
@@ -130,5 +133,32 @@ public class Open311Parser {
       }
     }
     return response;
+  }
+
+  /**
+   * Parses json string to Service Info Response
+   * 
+   * @param json
+   * @return
+   */
+  public static ServiceInfoResponse parseServiceInfos(String json) {
+
+    if (json == null) {
+      return new ServiceInfoResponse();
+    }
+
+    ObjectMapper om = new ObjectMapper();
+    ArrayList<ServiceInfo> serviceInfos;
+    ServiceInfoResponse sir = new ServiceInfoResponse();
+    try {
+      serviceInfos = om.readValue(json,
+          new TypeReference<ArrayList<ServiceInfo>>() {
+          });
+      sir.setServiceInfoList(serviceInfos);
+      sir.setResultCode(Open311Constants.RESULT_OK);
+    } catch (IOException e) {
+      logger.error(e);
+    }
+    return sir;
   }
 }

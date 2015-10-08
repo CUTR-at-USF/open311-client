@@ -19,6 +19,7 @@ import edu.usf.cutr.open311client.constants.Open311DataType;
 import edu.usf.cutr.open311client.models.NameValuePair;
 import edu.usf.cutr.open311client.models.Open311AttributePair;
 import edu.usf.cutr.open311client.models.ServiceDescriptionRequest;
+import edu.usf.cutr.open311client.models.ServiceInfoRequest;
 import edu.usf.cutr.open311client.models.ServiceListRequest;
 import edu.usf.cutr.open311client.models.ServiceRequest;
 
@@ -76,6 +77,20 @@ public class Open311UrlUtil {
   public static String getServiceRequestUrl(String baseUrl, String format) {
     return new StringBuilder(baseUrl).append("requests").append(".").append(
         format).toString();
+  }
+
+  /**
+   * creates service info request for already submitted request
+   * 
+   * @param baseUrl base open311 url
+   * @param format json/xml/html
+   * @param serviceRequestId
+   * @return url as string
+   */
+  public static String getServiceInfoUrl(String baseUrl, String format,
+      String serviceRequestId) {
+    return new StringBuilder(baseUrl).append("requests/").append(
+        serviceRequestId).append(".").append(format).toString();
   }
 
   /**
@@ -230,6 +245,48 @@ public class Open311UrlUtil {
           serviceDescriptionRequest.getLatitude().toString()));
       nameValuePairs.add(new NameValuePair("long",
           serviceDescriptionRequest.getLongitude().toString()));
+    }
+    return nameValuePairs;
+  }
+
+  /**
+   * Creates http entity for serviceInfoRequest
+   * @param serviceInfoRequest
+   * @return name value pairs
+   */
+  public static List<NameValuePair> prepareNameValuePairs(
+      ServiceInfoRequest serviceInfoRequest) {
+    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+    if (serviceInfoRequest.getJurisdictionId() != null) {
+      nameValuePairs.add(new NameValuePair("jurisdiction_id",
+          serviceInfoRequest.getJurisdictionId()));
+    } else
+      if (serviceInfoRequest.getLatitude() != null
+          && serviceInfoRequest.getLongitude() != null) {
+      nameValuePairs.add(new NameValuePair("lat",
+          serviceInfoRequest.getLatitude().toString()));
+      nameValuePairs.add(new NameValuePair("long",
+          serviceInfoRequest.getLongitude().toString()));
+    }
+    if (serviceInfoRequest.getServiceRequestId() != null) {
+      nameValuePairs.add(new NameValuePair("service_request_id",
+          serviceInfoRequest.getServiceRequestId()));
+    }
+    if (serviceInfoRequest.getServiceCode() != null) {
+      nameValuePairs.add(new NameValuePair("service_code",
+          serviceInfoRequest.getServiceCode()));
+    }
+    if (serviceInfoRequest.getStartDate() != null) {
+      nameValuePairs.add(
+          new NameValuePair("start_date", serviceInfoRequest.getStartDate()));
+    }
+    if (serviceInfoRequest.getEndDate() != null) {
+      nameValuePairs.add(
+          new NameValuePair("end_date", serviceInfoRequest.getEndDate()));
+    }
+    if (serviceInfoRequest.getStatus() != null) {
+      nameValuePairs.add(
+          new NameValuePair("status", serviceInfoRequest.getStatus()));
     }
     return nameValuePairs;
   }

@@ -23,12 +23,15 @@ import edu.usf.cutr.open311client.models.NameValuePair;
 import edu.usf.cutr.open311client.models.Open311Option;
 import edu.usf.cutr.open311client.models.ServiceDescription;
 import edu.usf.cutr.open311client.models.ServiceDescriptionRequest;
+import edu.usf.cutr.open311client.models.ServiceInfoRequest;
+import edu.usf.cutr.open311client.models.ServiceInfoResponse;
 import edu.usf.cutr.open311client.models.ServiceListRequest;
 import edu.usf.cutr.open311client.models.ServiceListResponse;
 import edu.usf.cutr.open311client.models.ServiceRequest;
 import edu.usf.cutr.open311client.models.ServiceRequestResponse;
 import edu.usf.cutr.open311client.utils.Open311Parser;
 import edu.usf.cutr.open311client.utils.Open311UrlUtil;
+import edu.usf.cutr.open311client.utils.Open311UrlUtil.RequestMethod;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -105,7 +108,8 @@ public class Open311 {
           open311Option.getOpen311Type());
     } else {
       logger.debug("Dry call postServiceRequest params: " + params);
-      ServiceRequestResponse srr = new ServiceRequestResponse(Open311Type.DEFAULT);
+      ServiceRequestResponse srr = new ServiceRequestResponse(
+          Open311Type.DEFAULT);
       srr.setResultCode(Open311Constants.RESULT_OK);
       return srr;
     }
@@ -157,6 +161,38 @@ public class Open311 {
     return Open311Parser.parseServiceDescription(result);
   }
 
+  /**
+   * Method for getting all of already submitted requests
+   * @param serviceInfoRequest
+   * @return ServiceInfoResponse contains list of service request informations
+   */
+  public ServiceInfoResponse getAllServiceRequests(ServiceInfoRequest serviceInfoRequest) {
+    List<NameValuePair> params = Open311UrlUtil.prepareNameValuePairs(
+        serviceInfoRequest);
+    logger.debug("call getAllServiceInfo params: " + params);
+    String result = connectionManager.getStringResult(
+        Open311UrlUtil.getServiceRequestUrl(open311Option.getBaseUrl(), format),
+        RequestMethod.GET, params);
+    logger.debug("call getAllServiceInfo result: " + result);
+    return Open311Parser.parseServiceInfos(result);
+  }
+  
+  /**
+   * Method for getting a service info
+   * @param serviceInfoRequest
+   * @return ServiceInfo
+   */
+  public ServiceInfoResponse getServiceRequest(ServiceInfoRequest serviceInfoRequest){
+    List<NameValuePair> params = Open311UrlUtil.prepareNameValuePairs(
+        serviceInfoRequest);
+    logger.debug("call getAllServiceInfo params: " + params);
+    String result = connectionManager.getStringResult(
+        Open311UrlUtil.getServiceInfoUrl(open311Option.getBaseUrl(), format, serviceInfoRequest.getServiceRequestId()),
+        RequestMethod.GET, params);
+    logger.debug("call getAllServiceInfo result: " + result);
+    return Open311Parser.parseServiceInfos(result);
+  }
+  
   /**
    * @return base url of the open311 server
    */
