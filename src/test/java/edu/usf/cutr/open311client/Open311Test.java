@@ -40,8 +40,10 @@ public class Open311Test {
     Open311Option option = new Open311Option(TestConstants.ENDPOINT,
         TestConstants.API_KEY);
     Open311Manager.initOpen311WithOption(option);
-    Open311Manager.setDebugMode(true);
-    Open311Manager.setDryRun(true);
+    
+    Open311Manager.getSettings().setDebugMode(true);
+    Open311Manager.getSettings().setDryRun(true);
+    
     open311 = Open311Manager.getDefaultOpen311();
   }
 

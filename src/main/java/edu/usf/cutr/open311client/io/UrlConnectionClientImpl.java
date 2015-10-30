@@ -16,8 +16,9 @@
 
 package edu.usf.cutr.open311client.io;
 
-import edu.usf.cutr.open311client.debug.Logger;
 import edu.usf.cutr.open311client.models.NameValuePair;
+import edu.usf.cutr.open311client.settings.Logger;
+import edu.usf.cutr.open311client.settings.Settings;
 import edu.usf.cutr.open311client.utils.Open311UrlUtil;
 
 import java.io.BufferedReader;
@@ -111,6 +112,7 @@ public class UrlConnectionClientImpl implements Open311ConnectionClient {
     URL url = new URL(requestURL);
     httpConnection = (HttpURLConnection) url.openConnection();
     httpConnection.setRequestMethod("GET");
+    httpConnection.setConnectTimeout(Settings.getSettings().getConnectionTimeout());
   }
 
   /**
@@ -122,6 +124,7 @@ public class UrlConnectionClientImpl implements Open311ConnectionClient {
   private void initPostConnection(String requestURL) throws IOException {
     URL url = new URL(requestURL);
     httpConnection = (HttpURLConnection) url.openConnection();
+    httpConnection.setConnectTimeout(Settings.getSettings().getConnectionTimeout());
     httpConnection.setUseCaches(false);
     httpConnection.setDoOutput(true);
     httpConnection.setDoInput(true);

@@ -16,8 +16,8 @@
 
 package edu.usf.cutr.open311client.io;
 
-import edu.usf.cutr.open311client.debug.Logger;
 import edu.usf.cutr.open311client.models.NameValuePair;
+import edu.usf.cutr.open311client.settings.Logger;
 import edu.usf.cutr.open311client.utils.Open311UrlUtil;
 
 import java.io.File;

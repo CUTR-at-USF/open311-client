@@ -16,10 +16,10 @@
 
 package edu.usf.cutr.open311client;
 
-import edu.usf.cutr.open311client.debug.Logger;
-import edu.usf.cutr.open311client.debug.Logger.LogLevel;
 import edu.usf.cutr.open311client.models.Open311Option;
 import edu.usf.cutr.open311client.models.Service;
+import edu.usf.cutr.open311client.settings.Logger;
+import edu.usf.cutr.open311client.settings.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +34,8 @@ public class Open311Manager {
   private static List<Open311> open311List = new ArrayList<Open311>();
 
   private static Logger logger = Logger.getLogger();
+  
+  private static Settings settings = Settings.getSettings();
 
   public static Open311 getDefaultOpen311() {
     if (open311List.size() == 0) {
@@ -100,18 +102,7 @@ public class Open311Manager {
     return result;
   }
 
-  public static void setDebugMode(boolean mode) {
-    if (mode) {
-      logger.setLogLevel(LogLevel.DEBUG);
-      logger.info("Log level changed: " + LogLevel.DEBUG);
-    } else {
-      logger.setLogLevel(LogLevel.INFO);
-      logger.info("Log level changed: " + LogLevel.INFO);
-    }
-  }
-
-  public static void setDryRun(boolean mode) {
-    logger.setDryRun(mode);
-    logger.info("Dry run mode changed: " + mode);
+  public static Settings getSettings() {
+    return settings;
   }
 }

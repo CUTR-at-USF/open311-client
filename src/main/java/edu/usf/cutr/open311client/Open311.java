@@ -17,7 +17,6 @@ package edu.usf.cutr.open311client;
 
 import edu.usf.cutr.open311client.constants.Open311Constants;
 import edu.usf.cutr.open311client.constants.Open311Type;
-import edu.usf.cutr.open311client.debug.Logger;
 import edu.usf.cutr.open311client.io.Open311ConnectionManager;
 import edu.usf.cutr.open311client.models.NameValuePair;
 import edu.usf.cutr.open311client.models.Open311Option;
@@ -29,6 +28,8 @@ import edu.usf.cutr.open311client.models.ServiceListRequest;
 import edu.usf.cutr.open311client.models.ServiceListResponse;
 import edu.usf.cutr.open311client.models.ServiceRequest;
 import edu.usf.cutr.open311client.models.ServiceRequestResponse;
+import edu.usf.cutr.open311client.settings.Logger;
+import edu.usf.cutr.open311client.settings.Settings;
 import edu.usf.cutr.open311client.utils.Open311Parser;
 import edu.usf.cutr.open311client.utils.Open311UrlUtil;
 import edu.usf.cutr.open311client.utils.Open311UrlUtil.RequestMethod;
@@ -96,7 +97,7 @@ public class Open311 {
       e.printStackTrace();
     }
 
-    if (!logger.isDryRun()) {
+    if (!Settings.getSettings().isDryRun()) {
 
       logger.debug("call postServiceRequest params: " + params);
       String result = connectionManager.getStringResult(

@@ -17,13 +17,13 @@ package edu.usf.cutr.open311client.utils;
 
 import edu.usf.cutr.open311client.constants.Open311Constants;
 import edu.usf.cutr.open311client.constants.Open311Type;
-import edu.usf.cutr.open311client.debug.Logger;
 import edu.usf.cutr.open311client.models.Service;
 import edu.usf.cutr.open311client.models.ServiceDescription;
 import edu.usf.cutr.open311client.models.ServiceInfo;
 import edu.usf.cutr.open311client.models.ServiceInfoResponse;
 import edu.usf.cutr.open311client.models.ServiceListResponse;
 import edu.usf.cutr.open311client.models.ServiceRequestResponse;
+import edu.usf.cutr.open311client.settings.Logger;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

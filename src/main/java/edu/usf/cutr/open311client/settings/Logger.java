@@ -14,15 +14,13 @@
 * limitations under the License.
 */
 
-package edu.usf.cutr.open311client.debug;
+package edu.usf.cutr.open311client.settings;
 
 public class Logger {
 
   private String TAG = "O311C";
 
   private LogLevel logLevel = LogLevel.INFO;
-
-  private boolean dryRun = false;
 
   public enum LogLevel {
     DEBUG("DEBUG"), INFO("INFO"), ERROR("ERROR"), FATAL("FATAL");
@@ -73,16 +71,8 @@ public class Logger {
     System.err.println(getHeaderByLevel(LogLevel.FATAL) + object.toString());
   }
 
-  public void setLogLevel(LogLevel logLevel) {
+  protected void setLogLevel(LogLevel logLevel) {
     this.logLevel = logLevel;
-  }
-
-  public boolean isDryRun() {
-    return dryRun;
-  }
-
-  public void setDryRun(boolean dryRun) {
-    this.dryRun = dryRun;
   }
 
   private String getHeaderByLevel(LogLevel level) {
