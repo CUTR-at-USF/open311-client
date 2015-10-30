@@ -104,7 +104,21 @@ Open311Option option = new Open311Option(API_URL, API_KEY, JURISDICTION_ID)
 Open311Manager.initOpen311WithOption(option);
 ```
 
-###### 2 - Do an API call
+###### 2 - Change open311 library settings (optional)
+
+```
+// Enable debug logging 
+Open311Manager.getSettings().setDebugMode(true);
+
+// Don't call post methods 
+Open311Manager.getSettings().setDryRun(true);
+
+// Set connection timeout to 30 seconds
+Open311Manager.getSettings().setConnectionTimeout(30*1000);
+```
+
+
+###### 3 - Do an API call
 
 ```
 Open311 open311 = Open311Manager.getDefaultOpen311();
