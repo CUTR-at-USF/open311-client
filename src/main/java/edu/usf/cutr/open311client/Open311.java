@@ -91,7 +91,9 @@ public class Open311 {
       ServiceRequest serviceRequest) {
     List<NameValuePair> params = null;
     try {
-      serviceRequest.setApi_key(open311Option.getApiKey());
+      if (serviceRequest.getApi_key() == null) {
+        serviceRequest.setApi_key(open311Option.getApiKey());
+      }
       params = Open311UrlUtil.prepareNameValuePairs(serviceRequest);
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
