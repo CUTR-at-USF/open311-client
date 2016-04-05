@@ -25,6 +25,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -35,7 +36,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UrlConnectionClientImpl implements Open311ConnectionClient {
+public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
 
   private Logger logger = Logger.getLogger();
 
@@ -233,11 +234,28 @@ public class UrlConnectionClientImpl implements Open311ConnectionClient {
       reader.close();
       httpConnection.disconnect();
     } else {
+      String errorMessage = createErrorMessage(httpConnection.getInputStream());
+      logger.error(errorMessage);
       throw new IOException("Server returned non-OK status: " + status);
-      // TODO: implement debug mode
     }
 
     return response;
+  }
+
+  private String createErrorMessage(InputStream inputStream) {
+    ArrayList<String> response = new ArrayList<String>();
+    BufferedReader reader = new BufferedReader(
+        new InputStreamReader(inputStream));
+    String line = null;
+    try {
+      while ((line = reader.readLine()) != null) {
+        response.add(line);
+      }
+      reader.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return getResponseAsString(response);
   }
 
   private String getResponseAsString(List<String> responseList) {

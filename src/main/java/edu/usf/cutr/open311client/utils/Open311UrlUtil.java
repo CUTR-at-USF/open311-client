@@ -156,9 +156,8 @@ public class Open311UrlUtil {
     if (serviceRequest.getJurisdiction_id() != null) {
       nameValuePairs.add(new NameValuePair("jurisdiction_id",
           serviceRequest.getJurisdiction_id()));
-    } else
-      if (serviceRequest.getLatitude() != null
-          && serviceRequest.getLongitude() != null) {
+    } else if (serviceRequest.getLatitude() != null
+        && serviceRequest.getLongitude() != null) {
       nameValuePairs.add(
           new NameValuePair("lat", serviceRequest.getLatitude().toString()));
       nameValuePairs.add(
@@ -211,9 +210,8 @@ public class Open311UrlUtil {
     if (serviceListRequest.getJurisdictionId() != null) {
       nameValuePairs.add(new NameValuePair("jurisdiction_id",
           serviceListRequest.getJurisdictionId()));
-    } else
-      if (serviceListRequest.getLatitude() != null
-          && serviceListRequest.getLongitude() != null) {
+    } else if (serviceListRequest.getLatitude() != null
+        && serviceListRequest.getLongitude() != null) {
       nameValuePairs.add(new NameValuePair("lat",
           serviceListRequest.getLatitude().toString()));
       nameValuePairs.add(new NameValuePair("long",
@@ -238,9 +236,8 @@ public class Open311UrlUtil {
     if (serviceDescriptionRequest.getJurisdictionId() != null) {
       nameValuePairs.add(new NameValuePair("jurisdiction_id",
           serviceDescriptionRequest.getJurisdictionId()));
-    } else
-      if (serviceDescriptionRequest.getLatitude() != null
-          && serviceDescriptionRequest.getLongitude() != null) {
+    } else if (serviceDescriptionRequest.getLatitude() != null
+        && serviceDescriptionRequest.getLongitude() != null) {
       nameValuePairs.add(new NameValuePair("lat",
           serviceDescriptionRequest.getLatitude().toString()));
       nameValuePairs.add(new NameValuePair("long",
@@ -251,6 +248,7 @@ public class Open311UrlUtil {
 
   /**
    * Creates http entity for serviceInfoRequest
+   * 
    * @param serviceInfoRequest
    * @return name value pairs
    */
@@ -260,9 +258,8 @@ public class Open311UrlUtil {
     if (serviceInfoRequest.getJurisdictionId() != null) {
       nameValuePairs.add(new NameValuePair("jurisdiction_id",
           serviceInfoRequest.getJurisdictionId()));
-    } else
-      if (serviceInfoRequest.getLatitude() != null
-          && serviceInfoRequest.getLongitude() != null) {
+    } else if (serviceInfoRequest.getLatitude() != null
+        && serviceInfoRequest.getLongitude() != null) {
       nameValuePairs.add(new NameValuePair("lat",
           serviceInfoRequest.getLatitude().toString()));
       nameValuePairs.add(new NameValuePair("long",
@@ -289,6 +286,10 @@ public class Open311UrlUtil {
           new NameValuePair("status", serviceInfoRequest.getStatus()));
     }
     return nameValuePairs;
+  }
+
+  public static boolean isUrlHttps(String url) {
+    return url.contains("https");
   }
 
 }

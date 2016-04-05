@@ -33,8 +33,12 @@ public class Open311ConnectionManager {
 
   private Open311ConnectionClient connectionClient;
 
-  public Open311ConnectionManager() {
-    connectionClient = new UrlConnectionClientImpl();
+  public Open311ConnectionManager(String url) {
+    if (Open311UrlUtil.isUrlHttps(url)) {
+      connectionClient = new HttpsUrlConnectionClientImpl();
+    } else {
+      connectionClient = new HttpUrlConnectionClientImpl();
+    }
   }
 
   /**

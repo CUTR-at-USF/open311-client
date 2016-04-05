@@ -49,13 +49,14 @@ public class Open311 {
 
   private Logger logger = Logger.getLogger();
 
-  private Open311ConnectionManager connectionManager = new Open311ConnectionManager();
+  private Open311ConnectionManager connectionManager;
 
   /**
    * Constructor with open311 option
    */
   protected Open311(Open311Option open311Option) {
     this.open311Option = open311Option;
+    this.connectionManager = new Open311ConnectionManager(this.open311Option.getBaseUrl()); 
   }
 
   /**
