@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2015 University of South Florida (sjbarbeau@gmail.com)
+* Copyright (C) 2016 University of South Florida (sjbarbeau@gmail.com)
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -227,24 +227,27 @@ public class HttpsUrlConnectionClientImpl implements Open311ConnectionClient {
     // checks server's status code first
     int status = httpsConnection.getResponseCode();
     if (status == HttpURLConnection.HTTP_OK) {
-      BufferedReader reader = new BufferedReader(
-          new InputStreamReader(httpsConnection.getInputStream()));
-      String line = null;
-      while ((line = reader.readLine()) != null) {
-        response.add(line);
+      response = getMessage(httpsConnection.getInputStream());
+    } else if (status == HttpURLConnection.HTTP_BAD_REQUEST) {
+      // Try to get error message
+      try {
+        response = getMessage(httpsConnection.getErrorStream());
+      } catch (Exception e) {
+        e.printStackTrace();
+        throw new IOException("Server returned non-OK status: " + status);
       }
-      reader.close();
-      httpsConnection.disconnect();
+      
     } else {
-      String errorMessage = createErrorMessage(httpsConnection.getInputStream());
+      String errorMessage = createErrorMessage(httpsConnection.getErrorStream());
       logger.error(errorMessage);
       throw new IOException("Server returned non-OK status: " + status);
     }
 
+    httpsConnection.disconnect();
     return response;
   }
 
-  private String createErrorMessage(InputStream inputStream) {
+  private ArrayList<String> getMessage(InputStream inputStream) {
     ArrayList<String> response = new ArrayList<String>();
     BufferedReader reader = new BufferedReader(
         new InputStreamReader(inputStream));
@@ -257,6 +260,11 @@ public class HttpsUrlConnectionClientImpl implements Open311ConnectionClient {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return response;
+  }
+  
+  private String createErrorMessage(InputStream inputStream) {
+    ArrayList<String> response = getMessage(inputStream);
     return getResponseAsString(response);
   }
 

@@ -25,6 +25,9 @@ import java.util.List;
  * @author Cagri Cetin
  */
 public class Open311Attribute {
+  
+  public static final String NAME = "name";
+  public static final String KEY = "key";
 
   private String variable;
   private Integer code;

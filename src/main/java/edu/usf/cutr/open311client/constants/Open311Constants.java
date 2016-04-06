@@ -32,6 +32,7 @@ public class Open311Constants {
   public static final String DESCRIPTION = "description";
   public static final String BASE = "base";
   public static final String DUPLICATE = "duplicate";
+  public static final String FULL_ERRORS = "full_errors";
   public static final String ID = "id";
   public static final String REQUEST_ID = "service_request_id";
   public static final String TOKEN = "token";

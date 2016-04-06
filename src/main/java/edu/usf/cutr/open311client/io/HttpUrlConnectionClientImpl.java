@@ -225,24 +225,27 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
     // checks server's status code first
     int status = httpConnection.getResponseCode();
     if (status == HttpURLConnection.HTTP_OK) {
-      BufferedReader reader = new BufferedReader(
-          new InputStreamReader(httpConnection.getInputStream()));
-      String line = null;
-      while ((line = reader.readLine()) != null) {
-        response.add(line);
+      response = getMessage(httpConnection.getInputStream());
+    } else if (status == HttpURLConnection.HTTP_BAD_REQUEST) {
+      // Try to get error message
+      try {
+        response = getMessage(httpConnection.getErrorStream());
+      } catch (Exception e) {
+        e.printStackTrace();
+        throw new IOException("Server returned non-OK status: " + status);
       }
-      reader.close();
-      httpConnection.disconnect();
+      
     } else {
-      String errorMessage = createErrorMessage(httpConnection.getInputStream());
+      String errorMessage = createErrorMessage(httpConnection.getErrorStream());
       logger.error(errorMessage);
       throw new IOException("Server returned non-OK status: " + status);
     }
 
+    httpConnection.disconnect();
     return response;
   }
 
-  private String createErrorMessage(InputStream inputStream) {
+  private ArrayList<String> getMessage(InputStream inputStream) {
     ArrayList<String> response = new ArrayList<String>();
     BufferedReader reader = new BufferedReader(
         new InputStreamReader(inputStream));
@@ -255,6 +258,11 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return response;
+  }
+  
+  private String createErrorMessage(InputStream inputStream) {
+    ArrayList<String> response = getMessage(inputStream);
     return getResponseAsString(response);
   }
 
