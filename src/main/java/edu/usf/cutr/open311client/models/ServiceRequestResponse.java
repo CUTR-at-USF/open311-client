@@ -17,8 +17,8 @@ package edu.usf.cutr.open311client.models;
 
 import edu.usf.cutr.open311client.constants.Open311Constants;
 import edu.usf.cutr.open311client.constants.Open311Type;
+import edu.usf.cutr.open311client.utils.Open311StringUtils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,17 +71,17 @@ public class ServiceRequestResponse extends Open311BaseModel {
       if (open311Type.equals(Open311Type.SEECLICKFIX)) {
         // Try to get from base message
         String message = getJsonStringFromArray(Open311Constants.BASE);
-        if (StringUtils.isBlank(message)) {
+        if (Open311StringUtils.isEmpty(message)) {
           // Try to find duplicate message
           message = getJsonStringFromArray(Open311Constants.DUPLICATE);
         }
-        if (StringUtils.isBlank(message)) {
+        if (Open311StringUtils.isEmpty(message)) {
           // One last try based on default open311 specification
           message = getJsonString(Open311Constants.DESCRIPTION);
           String fullError = getJsonString(Open311Constants.FULL_ERRORS);
-          if (StringUtils.isNotBlank(message) && StringUtils.isNotBlank(fullError)) {
+          if (!Open311StringUtils.isEmpty(message) && !Open311StringUtils.isEmpty(fullError)) {
             message += " " + fullError;
-          } else if (StringUtils.isBlank(message) && StringUtils.isNotBlank(fullError)) {
+          } else if (Open311StringUtils.isEmpty(message) && !Open311StringUtils.isEmpty(fullError)) {
             message = fullError;
           }
         }
