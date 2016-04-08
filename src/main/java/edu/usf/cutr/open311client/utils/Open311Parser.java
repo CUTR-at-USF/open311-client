@@ -24,8 +24,10 @@ import edu.usf.cutr.open311client.models.ServiceInfoResponse;
 import edu.usf.cutr.open311client.models.ServiceListResponse;
 import edu.usf.cutr.open311client.models.ServiceRequestResponse;
 import edu.usf.cutr.open311client.settings.Logger;
+import edu.usf.cutr.open311client.settings.Settings;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONArray;
@@ -56,7 +58,7 @@ public class Open311Parser {
       return new ServiceListResponse();
     }
 
-    ObjectMapper om = new ObjectMapper();
+    ObjectMapper om = createObjectMapper();
 
     ArrayList<Service> services;
     ServiceListResponse slr = new ServiceListResponse();
@@ -83,7 +85,7 @@ public class Open311Parser {
       return new ServiceDescription();
     }
 
-    ObjectMapper om = new ObjectMapper();
+    ObjectMapper om = createObjectMapper();
     ServiceDescription serviceDescription = new ServiceDescription();
     try {
       serviceDescription = om.readValue(json, ServiceDescription.class);
@@ -147,7 +149,7 @@ public class Open311Parser {
       return new ServiceInfoResponse();
     }
 
-    ObjectMapper om = new ObjectMapper();
+    ObjectMapper om = createObjectMapper();
     ArrayList<ServiceInfo> serviceInfos;
     ServiceInfoResponse sir = new ServiceInfoResponse();
     try {
@@ -160,5 +162,13 @@ public class Open311Parser {
       logger.error(e);
     }
     return sir;
+  }
+  
+  private static ObjectMapper createObjectMapper() {
+    ObjectMapper om = new ObjectMapper();
+    if (!Settings.getSettings().isDebugMode()) {
+      om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+    return om;
   }
 }

@@ -20,6 +20,8 @@ import edu.usf.cutr.open311client.settings.Logger.LogLevel;
 public class Settings {
 
   private boolean dryRun = false;
+  
+  private boolean debugMode = false;
 
   // Default connection time is 15 sec
   private int connectionTimeout = 1000*15;
@@ -66,5 +68,10 @@ public class Settings {
       logger.setLogLevel(LogLevel.INFO);
       logger.info("Log level changed: " + LogLevel.INFO);
     }
+    this.debugMode = mode;
+  }
+  
+  public boolean isDebugMode() {
+    return debugMode;
   }
 }
