@@ -51,12 +51,12 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
 
   @Override
   public String getMethod(String url, List<NameValuePair> params)
-      throws IOException {
+          throws IOException {
 
     initGetConnection(url + Open311UrlUtil.nameValuePairsToParams(params));
 
     logger.debug("getMethod with url: " + url
-        + Open311UrlUtil.nameValuePairsToParams(params));
+            + Open311UrlUtil.nameValuePairsToParams(params));
     ArrayList<String> responseList = finishConnection();
 
     return getResponseAsString(responseList);
@@ -64,7 +64,7 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
 
   @Override
   public String postMethod(String url, List<NameValuePair> params)
-      throws IOException {
+          throws IOException {
     initPostConnection(url);
 
     appendFormField(params);
@@ -77,13 +77,13 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
     ArrayList<String> responseList = finishConnection();
     String result = getResponseAsString(responseList);
     logger.debug("postMethod result: " + result);
-    
+
     return result;
   }
 
   @Override
   public String postMethod(String url, List<NameValuePair> params, File file)
-      throws IOException {
+          throws IOException {
     initPostConnection(url);
 
     appendFormField(params);
@@ -91,7 +91,7 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
     appendFilePart("media", file);
 
     appendFinishHeader();
-    
+
     logger.debug("postMethod with file and url: " + url);
     logger.debug("postMethod with file params: " + params);
 
@@ -99,13 +99,13 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
 
     String result = getResponseAsString(responseList);
     logger.debug("postMethod with file result: " + result);
-    
+
     return result;
   }
 
   /**
    * Initialize a HTTP get connection from given url with parameters
-   * 
+   *
    * @param requestURL
    * @throws IOException
    */
@@ -118,7 +118,7 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
 
   /**
    * Initialize a post connection with given url
-   * 
+   *
    * @param requestURL
    * @throws IOException
    */
@@ -131,26 +131,26 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
     httpConnection.setDoInput(true);
     httpConnection.setRequestMethod("POST");
     httpConnection.setRequestProperty("Content-Type",
-        "multipart/form-data; boundary=" + boundary);
+            "multipart/form-data; boundary=" + boundary);
 
     outputStream = httpConnection.getOutputStream();
     writer = new PrintWriter(new OutputStreamWriter(outputStream, charset),
-        true);
+            true);
   }
 
   /**
    * Adds a form field to the request
    *
-   * @param name field name
+   * @param name  field name
    * @param value field value
    */
   private void appendFormField(String name, String value) {
     writer.append("--" + boundary).append(LINE_FEED);
     writer.append(
-        "Content-Disposition: form-data; name=\"" + name + "\"").append(
+            "Content-Disposition: form-data; name=\"" + name + "\"").append(
             LINE_FEED);
     writer.append("Content-Type: text/plain; charset=" + charset).append(
-        LINE_FEED);
+            LINE_FEED);
     writer.append(LINE_FEED);
     writer.append(value).append(LINE_FEED);
     writer.flush();
@@ -165,18 +165,18 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
   /**
    * Adds a upload file section to the request
    *
-   * @param fieldName name attribute in <input type="file" name="..." />
+   * @param fieldName  name attribute in <input type="file" name="..." />
    * @param uploadFile a File to be uploaded
    * @throws IOException
    */
   private void appendFilePart(String fieldName, File uploadFile)
-      throws IOException {
+          throws IOException {
     String fileName = uploadFile.getName();
     writer.append("--" + boundary).append(LINE_FEED);
     writer.append("Content-Disposition: form-data; name=\"" + fieldName
-        + "\"; filename=\"" + fileName + "\"").append(LINE_FEED);
+            + "\"; filename=\"" + fileName + "\"").append(LINE_FEED);
     writer.append("Content-Type: "
-        + URLConnection.guessContentTypeFromName(fileName)).append(LINE_FEED);
+            + URLConnection.guessContentTypeFromName(fileName)).append(LINE_FEED);
     writer.append("Content-Transfer-Encoding: binary").append(LINE_FEED);
     writer.append(LINE_FEED);
     writer.flush();
@@ -197,7 +197,7 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
   /**
    * Adds a header field to the request.
    *
-   * @param name - name of the header field
+   * @param name  - name of the header field
    * @param value - value of the header field
    */
   @SuppressWarnings("unused")
@@ -216,7 +216,7 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
    * Completes the request and receives response from the server.
    *
    * @return a list of Strings as response in case the server returned status
-   *         OK, otherwise an exception is thrown.
+   * OK, otherwise an exception is thrown.
    * @throws IOException
    */
   private ArrayList<String> finishConnection() throws IOException {
@@ -234,7 +234,7 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
         e.printStackTrace();
         throw new IOException("Server returned non-OK status: " + status);
       }
-      
+
     } else {
       String errorMessage = createErrorMessage(httpConnection.getErrorStream());
       logger.error(errorMessage);
@@ -248,7 +248,7 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
   private ArrayList<String> getMessage(InputStream inputStream) {
     ArrayList<String> response = new ArrayList<String>();
     BufferedReader reader = new BufferedReader(
-        new InputStreamReader(inputStream));
+            new InputStreamReader(inputStream));
     String line = null;
     try {
       while ((line = reader.readLine()) != null) {
@@ -260,7 +260,7 @@ public class HttpUrlConnectionClientImpl implements Open311ConnectionClient {
     }
     return response;
   }
-  
+
   private String createErrorMessage(InputStream inputStream) {
     ArrayList<String> response = getMessage(inputStream);
     return getResponseAsString(response);

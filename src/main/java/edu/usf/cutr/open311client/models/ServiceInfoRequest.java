@@ -10,7 +10,7 @@ public class ServiceInfoRequest {
   private String startDate;
   private String endDate;
   private String status;
-  
+
   public ServiceInfoRequest(String jurisdictionId) {
     this.jurisdictionId = jurisdictionId;
   }

@@ -19,7 +19,7 @@ package edu.usf.cutr.open311client.models;
 
 /**
  * Model for open311 service
- * 
+ *
  * @author Cagri Cetin
  */
 public class Service {

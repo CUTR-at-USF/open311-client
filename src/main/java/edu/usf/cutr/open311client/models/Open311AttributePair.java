@@ -18,7 +18,7 @@ package edu.usf.cutr.open311client.models;
 
 /**
  * Attribute code value pair
- * 
+ *
  * @author Cagri Cetin
  */
 public class Open311AttributePair {
@@ -28,7 +28,7 @@ public class Open311AttributePair {
   private String open311DataType;
 
   public Open311AttributePair(Integer code, String value,
-      String open311DataType) {
+                              String open311DataType) {
     this.code = code;
     this.value = value;
     this.open311DataType = open311DataType;

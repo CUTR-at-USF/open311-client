@@ -18,7 +18,7 @@ package edu.usf.cutr.open311client.models;
 
 /**
  * Model for open311 user
- * 
+ *
  * @author Cagri Cetin
  */
 public class Open311User {

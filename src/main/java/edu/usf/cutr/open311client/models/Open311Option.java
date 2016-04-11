@@ -21,7 +21,7 @@ import edu.usf.cutr.open311client.constants.Open311Type;
 /**
  * Model for initializing open311. In one application there could be multiple
  * open311 servers.
- * 
+ *
  * @author Cagri Cetin
  */
 public class Open311Option {
@@ -32,7 +32,7 @@ public class Open311Option {
   private String tag;
 
   public Open311Option(String baseUrl, String apiKey, String jurisdiction,
-      Open311Type open311Type, String tag) {
+                       Open311Type open311Type, String tag) {
     this.baseUrl = baseUrl;
     this.apiKey = apiKey;
     this.jurisdiction = jurisdiction;

@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Open311 manager design to manage multiple endpoints in one application
- * 
+ *
  * @author Cagri Cetin
  */
 public class Open311Manager {
@@ -34,7 +34,7 @@ public class Open311Manager {
   private static List<Open311> open311List = new ArrayList<Open311>();
 
   private static Logger logger = Logger.getLogger();
-  
+
   private static Settings settings = Settings.getSettings();
 
   public static Open311 getDefaultOpen311() {
@@ -80,8 +80,8 @@ public class Open311Manager {
       initOpen311WithOption(option);
     }
   }
-  
-  public static void clearOpen311(){
+
+  public static void clearOpen311() {
     open311List.clear();
     logger.info("clearOpen311");
   }

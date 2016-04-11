@@ -34,7 +34,7 @@ public class ServiceRequestResponse extends Open311BaseModel {
   private Open311Type open311Type;
 
   public ServiceRequestResponse(JSONObject jsonObject,
-      Open311Type open311Type) {
+                                Open311Type open311Type) {
     this.jsonObject = jsonObject;
     this.open311Type = open311Type;
   }

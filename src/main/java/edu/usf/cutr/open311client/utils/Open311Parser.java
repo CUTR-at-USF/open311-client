@@ -104,7 +104,7 @@ public class Open311Parser {
    * @return
    */
   public static ServiceRequestResponse parseRequestResponse(String json,
-      Open311Type open311Type) {
+                                                            Open311Type open311Type) {
     ServiceRequestResponse response = null;
 
     if (json == null) {
@@ -116,7 +116,7 @@ public class Open311Parser {
 
       if (jsonArray.getJSONObject(0) != null) {
         response = new ServiceRequestResponse(jsonArray.getJSONObject(0),
-            open311Type);
+                open311Type);
       } else {
         response = new ServiceRequestResponse(open311Type);
         response.setResultCode(Open311Constants.RESULT_FAIL);
@@ -139,7 +139,7 @@ public class Open311Parser {
 
   /**
    * Parses json string to Service Info Response
-   * 
+   *
    * @param json
    * @return
    */
@@ -154,8 +154,8 @@ public class Open311Parser {
     ServiceInfoResponse sir = new ServiceInfoResponse();
     try {
       serviceInfos = om.readValue(json,
-          new TypeReference<ArrayList<ServiceInfo>>() {
-          });
+              new TypeReference<ArrayList<ServiceInfo>>() {
+              });
       sir.setServiceInfoList(serviceInfos);
       sir.setResultCode(Open311Constants.RESULT_OK);
     } catch (IOException e) {
@@ -163,7 +163,7 @@ public class Open311Parser {
     }
     return sir;
   }
-  
+
   private static ObjectMapper createObjectMapper() {
     ObjectMapper om = new ObjectMapper();
     if (!Settings.getSettings().isDebugMode()) {

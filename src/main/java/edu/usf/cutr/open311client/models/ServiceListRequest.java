@@ -18,7 +18,7 @@ package edu.usf.cutr.open311client.models;
 
 /**
  * Simple model for service list requests
- * 
+ *
  * @author Cagri Cetin
  */
 
@@ -40,14 +40,14 @@ public class ServiceListRequest {
   }
 
   public ServiceListRequest(Double latitude, Double longitude,
-      String jurisdictionId) {
+                            String jurisdictionId) {
     this.latitude = latitude;
     this.longitude = longitude;
     this.jurisdictionId = jurisdictionId;
   }
 
   public ServiceListRequest(Double latitude, Double longitude, String address,
-      String jurisdictionId) {
+                            String jurisdictionId) {
     this.latitude = latitude;
     this.longitude = longitude;
     this.address = address;

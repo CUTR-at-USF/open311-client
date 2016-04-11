@@ -56,7 +56,7 @@ public class Open311 {
    */
   protected Open311(Open311Option open311Option) {
     this.open311Option = open311Option;
-    this.connectionManager = new Open311ConnectionManager(this.open311Option.getBaseUrl()); 
+    this.connectionManager = new Open311ConnectionManager(this.open311Option.getBaseUrl());
   }
 
   /**
@@ -66,7 +66,7 @@ public class Open311 {
    * @return ServiceListResponse object
    */
   public ServiceListResponse getServiceList(
-      ServiceListRequest serviceListRequest) {
+          ServiceListRequest serviceListRequest) {
     List<NameValuePair> params = null;
     try {
       params = Open311UrlUtil.prepareNameValuePairs(serviceListRequest);
@@ -75,8 +75,8 @@ public class Open311 {
     }
     logger.debug("call getServiceList params: " + params);
     String result = connectionManager.getStringResult(
-        Open311UrlUtil.getServiceUrl(open311Option.getBaseUrl(), format),
-        Open311UrlUtil.RequestMethod.GET, params);
+            Open311UrlUtil.getServiceUrl(open311Option.getBaseUrl(), format),
+            Open311UrlUtil.RequestMethod.GET, params);
     logger.debug("call getServiceList result: " + result);
 
     return Open311Parser.parseServices(result);
@@ -89,7 +89,7 @@ public class Open311 {
    * @return result from open311 endpoint
    */
   public ServiceRequestResponse postServiceRequest(
-      ServiceRequest serviceRequest) {
+          ServiceRequest serviceRequest) {
     List<NameValuePair> params = null;
     try {
       if (serviceRequest.getApi_key() == null) {
@@ -104,16 +104,16 @@ public class Open311 {
 
       logger.debug("call postServiceRequest params: " + params);
       String result = connectionManager.getStringResult(
-          Open311UrlUtil.getServiceRequestUrl(open311Option.getBaseUrl(),
-              format),
-          Open311UrlUtil.RequestMethod.POST, params, serviceRequest.getMedia());
+              Open311UrlUtil.getServiceRequestUrl(open311Option.getBaseUrl(),
+                      format),
+              Open311UrlUtil.RequestMethod.POST, params, serviceRequest.getMedia());
       logger.debug("call postServiceRequest result: " + result);
       return Open311Parser.parseRequestResponse(result,
-          open311Option.getOpen311Type());
+              open311Option.getOpen311Type());
     } else {
       logger.debug("Dry call postServiceRequest params: " + params);
       ServiceRequestResponse srr = new ServiceRequestResponse(
-          Open311Type.DEFAULT);
+              Open311Type.DEFAULT);
       srr.setResultCode(Open311Constants.RESULT_OK);
       return srr;
     }
@@ -126,7 +126,7 @@ public class Open311 {
    * @return result from open311 endpoint
    */
   public ServiceRequestResponse getServiceRequest(
-      ServiceRequest serviceRequest) {
+          ServiceRequest serviceRequest) {
     List<NameValuePair> params = null;
     try {
       params = Open311UrlUtil.prepareNameValuePairs(serviceRequest);
@@ -135,11 +135,11 @@ public class Open311 {
     }
     logger.debug("call getServiceRequest params: " + params);
     String result = connectionManager.getStringResult(
-        Open311UrlUtil.getServiceRequestUrl(open311Option.getBaseUrl(), format),
-        Open311UrlUtil.RequestMethod.GET, params);
+            Open311UrlUtil.getServiceRequestUrl(open311Option.getBaseUrl(), format),
+            Open311UrlUtil.RequestMethod.GET, params);
     logger.debug("call getServiceRequest result: " + result);
     return Open311Parser.parseRequestResponse(result,
-        open311Option.getOpen311Type());
+            open311Option.getOpen311Type());
   }
 
   /**
@@ -149,7 +149,7 @@ public class Open311 {
    * @return result from open311 endpoint
    */
   public ServiceDescription getServiceDescription(
-      ServiceDescriptionRequest serviceDescriptionRequest) {
+          ServiceDescriptionRequest serviceDescriptionRequest) {
     List<NameValuePair> params = null;
     try {
       params = Open311UrlUtil.prepareNameValuePairs(serviceDescriptionRequest);
@@ -158,45 +158,47 @@ public class Open311 {
     }
     logger.debug("call getServiceDescription params: " + params);
     String result = connectionManager.getStringResult(
-        Open311UrlUtil.getServiceDescUrl(open311Option.getBaseUrl(),
-            serviceDescriptionRequest.getServiceCode(), format),
-        Open311UrlUtil.RequestMethod.GET, params);
+            Open311UrlUtil.getServiceDescUrl(open311Option.getBaseUrl(),
+                    serviceDescriptionRequest.getServiceCode(), format),
+            Open311UrlUtil.RequestMethod.GET, params);
     logger.debug("call getServiceDescription result: " + result);
     return Open311Parser.parseServiceDescription(result);
   }
 
   /**
    * Method for getting all of already submitted requests
+   *
    * @param serviceInfoRequest
    * @return ServiceInfoResponse contains list of service request informations
    */
   public ServiceInfoResponse getAllServiceRequests(ServiceInfoRequest serviceInfoRequest) {
     List<NameValuePair> params = Open311UrlUtil.prepareNameValuePairs(
-        serviceInfoRequest);
+            serviceInfoRequest);
     logger.debug("call getAllServiceInfo params: " + params);
     String result = connectionManager.getStringResult(
-        Open311UrlUtil.getServiceRequestUrl(open311Option.getBaseUrl(), format),
-        RequestMethod.GET, params);
+            Open311UrlUtil.getServiceRequestUrl(open311Option.getBaseUrl(), format),
+            RequestMethod.GET, params);
     logger.debug("call getAllServiceInfo result: " + result);
     return Open311Parser.parseServiceInfos(result);
   }
-  
+
   /**
    * Method for getting a service info
+   *
    * @param serviceInfoRequest
    * @return ServiceInfo
    */
-  public ServiceInfoResponse getServiceRequest(ServiceInfoRequest serviceInfoRequest){
+  public ServiceInfoResponse getServiceRequest(ServiceInfoRequest serviceInfoRequest) {
     List<NameValuePair> params = Open311UrlUtil.prepareNameValuePairs(
-        serviceInfoRequest);
+            serviceInfoRequest);
     logger.debug("call getAllServiceInfo params: " + params);
     String result = connectionManager.getStringResult(
-        Open311UrlUtil.getServiceInfoUrl(open311Option.getBaseUrl(), format, serviceInfoRequest.getServiceRequestId()),
-        RequestMethod.GET, params);
+            Open311UrlUtil.getServiceInfoUrl(open311Option.getBaseUrl(), format, serviceInfoRequest.getServiceRequestId()),
+            RequestMethod.GET, params);
     logger.debug("call getAllServiceInfo result: " + result);
     return Open311Parser.parseServiceInfos(result);
   }
-  
+
   /**
    * @return base url of the open311 server
    */

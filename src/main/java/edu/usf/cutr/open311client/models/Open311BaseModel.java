@@ -21,7 +21,7 @@ import edu.usf.cutr.open311client.constants.Open311Constants;
 /**
  * Base model for all open311 models Simplifies return results from the open311
  * servers.
- * 
+ *
  * @author Cagri Cetin
  */
 public class Open311BaseModel {

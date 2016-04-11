@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * model for open311 service description
- * 
+ *
  * @author Cagri Cetin
  */
 public class ServiceDescription extends Open311BaseModel {

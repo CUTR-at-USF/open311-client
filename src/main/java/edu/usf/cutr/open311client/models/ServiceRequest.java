@@ -46,17 +46,17 @@ public class ServiceRequest {
   private List<Open311AttributePair> attributes;
 
   public ServiceRequest(String jurisdiction_id, String service_code,
-      String api_key) {
+                        String api_key) {
     this.jurisdiction_id = jurisdiction_id;
     this.service_code = service_code;
     this.api_key = api_key;
   }
 
   public ServiceRequest(String jurisdiction_id, String service_code,
-      String service_name, String api_key, Double latitude, Double longitude,
-      String address_string, String email, String device_id, String account_id,
-      String first_name, String last_name, String phone, String description,
-      String summary, String media_url, File media) {
+                        String service_name, String api_key, Double latitude, Double longitude,
+                        String address_string, String email, String device_id, String account_id,
+                        String first_name, String last_name, String phone, String description,
+                        String summary, String media_url, File media) {
     this.jurisdiction_id = jurisdiction_id;
     this.service_code = service_code;
     this.service_name = service_name;
@@ -320,8 +320,8 @@ public class ServiceRequest {
 
     public ServiceRequest createServiceRequest() {
       return new ServiceRequest(jurisdiction_id, service_code, service_name,
-          null, latitude, longitude, address_string, email, device_id, account_id,
-          first_name, last_name, phone, description, summary, media_url, media);
+              null, latitude, longitude, address_string, email, device_id, account_id,
+              first_name, last_name, phone, description, summary, media_url, media);
     }
 
   }

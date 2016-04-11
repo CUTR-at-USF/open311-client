@@ -28,5 +28,5 @@ public interface Open311ConnectionClient {
   String postMethod(String url, List<NameValuePair> params) throws IOException;
 
   String postMethod(String url, List<NameValuePair> params, File file)
-      throws IOException;
+          throws IOException;
 }

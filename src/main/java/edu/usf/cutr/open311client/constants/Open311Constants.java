@@ -18,7 +18,7 @@ package edu.usf.cutr.open311client.constants;
 
 /**
  * Constants for open311
- * 
+ *
  * @author Cagri Cetin
  */
 public class Open311Constants {

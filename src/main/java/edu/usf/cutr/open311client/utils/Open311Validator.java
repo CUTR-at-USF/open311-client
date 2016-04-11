@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Validator class for open311 requests
- * 
+ *
  * @author Cagri Cetin
  */
 public class Open311Validator {
@@ -43,39 +43,37 @@ public class Open311Validator {
 
   /**
    * Validates service request
-   * 
+   *
    * @param serviceRequest
-   * @param open311Type Different config for different backend
+   * @param open311Type        Different config for different backend
    * @param serviceDescription validates also service description
    * @return error code
    */
   public static int validateServiceRequest(ServiceRequest serviceRequest,
-      Open311Type open311Type, ServiceDescription serviceDescription) {
+                                           Open311Type open311Type, ServiceDescription serviceDescription) {
 
     if (serviceRequest.getService_code() == null) {
       return PROBLEM_CODE_SERVICE;
     }
 
     if (serviceRequest.getLatitude() == null
-        || serviceRequest.getLongitude() == null) {
+            || serviceRequest.getLongitude() == null) {
       return PROBLEM_CODE_LOCATION;
     }
 
     if (serviceRequest.getDescription() == null
-        || "".equals(serviceRequest.getDescription())) {
+            || "".equals(serviceRequest.getDescription())) {
       return PROBLEM_CODE_DESC;
     }
 
     if (open311Type.equals(Open311Type.SEECLICKFIX)) {
       if (serviceRequest.getFirst_name() == null
-          || "".equals(serviceRequest.getFirst_name())) {
+              || "".equals(serviceRequest.getFirst_name())) {
         return PROBLEM_CODE_USER_NAME;
-      } else
-        if (serviceRequest.getLast_name() == null
-            || "".equals(serviceRequest.getLast_name())) {
+      } else if (serviceRequest.getLast_name() == null
+              || "".equals(serviceRequest.getLast_name())) {
         return PROBLEM_CODE_USER_LASTNAME;
-      } else
-          if (serviceRequest.getEmail() == null
+      } else if (serviceRequest.getEmail() == null
               || "".equals(serviceRequest.getEmail())) {
         return PROBLEM_CODE_USER_EMAIL;
       }
@@ -85,7 +83,7 @@ public class Open311Validator {
       for (Open311Attribute open311Attribute : serviceDescription.getAttributes()) {
         if (open311Attribute.getRequired()) {
           boolean valid = findAttribute(serviceRequest.getAttributes(),
-              open311Attribute.getCode());
+                  open311Attribute.getCode());
           if (valid == false) {
             return PROBLEM_CODE_MANDATORY_QUESTION;
           }
@@ -97,7 +95,7 @@ public class Open311Validator {
   }
 
   private static boolean findAttribute(List<Open311AttributePair> attributes,
-      Integer code) {
+                                       Integer code) {
     for (Open311AttributePair attribute : attributes) {
       if (attribute.getCode() == code) {
         return true;
@@ -111,12 +109,11 @@ public class Open311Validator {
   }
 
   public static int validateServiceRequest(ServiceRequest serviceRequest,
-      Open311Type open311Type) {
+                                           Open311Type open311Type) {
     return validateServiceRequest(serviceRequest, open311Type, null);
   }
 
   /**
-   *
    * @param errorCode
    * @return if the validation is valid
    */
@@ -126,12 +123,12 @@ public class Open311Validator {
 
   /**
    * Gets default error message from error code
-   * 
+   *
    * @param errorCode
    * @return
    */
   public static String getErrorMessageForServiceRequestByErrorCode(
-      int errorCode) {
+          int errorCode) {
 
     switch (errorCode) {
       case PROBLEM_CODE_SERVICE:

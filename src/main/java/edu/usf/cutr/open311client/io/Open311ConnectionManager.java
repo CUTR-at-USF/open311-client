@@ -44,13 +44,13 @@ public class Open311ConnectionManager {
   /**
    * Makes connection to any server.
    *
-   * @param url Destination url
+   * @param url           Destination url
    * @param requestMethod request method Post or Get
    * @return Returns the result of the request as string
    */
   public String getStringResult(String url,
-      Open311UrlUtil.RequestMethod requestMethod, List<NameValuePair> params,
-      File file) {
+                                Open311UrlUtil.RequestMethod requestMethod, List<NameValuePair> params,
+                                File file) {
 
     String result = null;
     try {
@@ -73,7 +73,7 @@ public class Open311ConnectionManager {
   }
 
   public String getStringResult(String url,
-      Open311UrlUtil.RequestMethod requestMethod, List<NameValuePair> params) {
+                                Open311UrlUtil.RequestMethod requestMethod, List<NameValuePair> params) {
     return getStringResult(url, requestMethod, params, null);
   }
 
@@ -85,7 +85,7 @@ public class Open311ConnectionManager {
    * @return
    */
   public String getStringResult(String url,
-      Open311UrlUtil.RequestMethod requestMethod) {
+                                Open311UrlUtil.RequestMethod requestMethod) {
     return getStringResult(url, requestMethod, null);
   }
 }

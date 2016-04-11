@@ -21,11 +21,11 @@ import java.util.List;
 /**
  * Model for attributes specified in open311 documentation.
  * http://wiki.open311.org/GeoReport_v2/
- * 
+ *
  * @author Cagri Cetin
  */
 public class Open311Attribute {
-  
+
   public static final String NAME = "name";
   public static final String KEY = "key";
 

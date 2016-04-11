@@ -2,7 +2,7 @@ package edu.usf.cutr.open311client.models;
 
 import java.util.List;
 
-public class ServiceInfoResponse extends Open311BaseModel{
+public class ServiceInfoResponse extends Open311BaseModel {
 
   List<ServiceInfo> serviceInfoList;
 

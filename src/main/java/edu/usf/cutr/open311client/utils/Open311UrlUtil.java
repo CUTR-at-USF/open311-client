@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Helper class for preparing destination urls Helper class for preparing
  * request parameters
- * 
+ *
  * @author Cagri Cetin
  */
 
@@ -45,12 +45,12 @@ public class Open311UrlUtil {
    * creates service url
    *
    * @param baseUrl
-   * @param format json/xml/html
+   * @param format  json/xml/html
    * @return url as string
    */
   public static String getServiceUrl(String baseUrl, String format) {
     return new StringBuilder(baseUrl).append("services").append(".").append(
-        format).toString();
+            format).toString();
   }
 
   /**
@@ -58,39 +58,39 @@ public class Open311UrlUtil {
    *
    * @param baseUrl
    * @param serviceCode
-   * @param format json/xml/html
+   * @param format      json/xml/html
    * @return url as string
    */
   public static String getServiceDescUrl(String baseUrl, String serviceCode,
-      String format) {
+                                         String format) {
     return new StringBuilder(baseUrl).append("services/").append(
-        serviceCode).append(".").append(format).toString();
+            serviceCode).append(".").append(format).toString();
   }
 
   /**
    * creates service request url
    *
    * @param baseUrl
-   * @param format json/xml/html
+   * @param format  json/xml/html
    * @return url as string
    */
   public static String getServiceRequestUrl(String baseUrl, String format) {
     return new StringBuilder(baseUrl).append("requests").append(".").append(
-        format).toString();
+            format).toString();
   }
 
   /**
    * creates service info request for already submitted request
-   * 
-   * @param baseUrl base open311 url
-   * @param format json/xml/html
+   *
+   * @param baseUrl          base open311 url
+   * @param format           json/xml/html
    * @param serviceRequestId
    * @return url as string
    */
   public static String getServiceInfoUrl(String baseUrl, String format,
-      String serviceRequestId) {
+                                         String serviceRequestId) {
     return new StringBuilder(baseUrl).append("requests/").append(
-        serviceRequestId).append(".").append(format).toString();
+            serviceRequestId).append(".").append(format).toString();
   }
 
   /**
@@ -101,7 +101,7 @@ public class Open311UrlUtil {
    * @throws java.io.IOException
    */
   public static String nameValuePairsToParams(List<NameValuePair> valuePairs)
-      throws IOException {
+          throws IOException {
 
     StringBuilder sb = new StringBuilder();
 
@@ -112,7 +112,7 @@ public class Open311UrlUtil {
         sb.append("&");
       }
       sb.append(valuePairs.get(i).getName()).append("=").append(
-          valuePairs.get(i).getValue());
+              valuePairs.get(i).getValue());
     }
     return sb.toString();
   }
@@ -125,7 +125,7 @@ public class Open311UrlUtil {
    * @throws java.io.UnsupportedEncodingException
    */
   public static List<NameValuePair> prepareNameValuePairs(
-      ServiceRequest serviceRequest) throws UnsupportedEncodingException {
+          ServiceRequest serviceRequest) throws UnsupportedEncodingException {
     List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
     if (serviceRequest.getAttributes() != null) {
@@ -133,64 +133,64 @@ public class Open311UrlUtil {
         if ("".equals(open311AttributePair.getValue()) == false) {
 
           if (Open311DataType.MULTIVALUELIST.equals(
-              open311AttributePair.getOpen311DataType())) {
+                  open311AttributePair.getOpen311DataType())) {
             nameValuePairs.add(new NameValuePair(
-                "attribute[" + open311AttributePair.getCode() + "][]",
-                open311AttributePair.getValue()));
+                    "attribute[" + open311AttributePair.getCode() + "][]",
+                    open311AttributePair.getValue()));
           } else {
             nameValuePairs.add(new NameValuePair(
-                "attribute[" + open311AttributePair.getCode() + "]",
-                open311AttributePair.getValue()));
+                    "attribute[" + open311AttributePair.getCode() + "]",
+                    open311AttributePair.getValue()));
           }
         }
       }
     }
 
     nameValuePairs.add(
-        new NameValuePair("api_key", serviceRequest.getApi_key()));
+            new NameValuePair("api_key", serviceRequest.getApi_key()));
     nameValuePairs.add(
-        new NameValuePair("service_code", serviceRequest.getService_code()));
+            new NameValuePair("service_code", serviceRequest.getService_code()));
     nameValuePairs.add(
-        new NameValuePair("service_name", serviceRequest.getService_name()));
+            new NameValuePair("service_name", serviceRequest.getService_name()));
 
     if (serviceRequest.getJurisdiction_id() != null) {
       nameValuePairs.add(new NameValuePair("jurisdiction_id",
-          serviceRequest.getJurisdiction_id()));
+              serviceRequest.getJurisdiction_id()));
     } else if (serviceRequest.getLatitude() != null
-        && serviceRequest.getLongitude() != null) {
+            && serviceRequest.getLongitude() != null) {
       nameValuePairs.add(
-          new NameValuePair("lat", serviceRequest.getLatitude().toString()));
+              new NameValuePair("lat", serviceRequest.getLatitude().toString()));
       nameValuePairs.add(
-          new NameValuePair("long", serviceRequest.getLongitude().toString()));
+              new NameValuePair("long", serviceRequest.getLongitude().toString()));
     }
 
     if (serviceRequest.getAddress_string() != null) {
       nameValuePairs.add(new NameValuePair("address_string",
-          serviceRequest.getAddress_string()));
+              serviceRequest.getAddress_string()));
     }
     nameValuePairs.add(
-        new NameValuePair("description", serviceRequest.getDescription()));
+            new NameValuePair("description", serviceRequest.getDescription()));
     if (serviceRequest.getMedia_url() != null)
       nameValuePairs.add(
-          new NameValuePair("media_url", serviceRequest.getMedia_url()));
+              new NameValuePair("media_url", serviceRequest.getMedia_url()));
 
     if (serviceRequest.getFirst_name() != null) {
       // Personal info
       nameValuePairs.add(
-          new NameValuePair("first_name", serviceRequest.getFirst_name()));
+              new NameValuePair("first_name", serviceRequest.getFirst_name()));
       nameValuePairs.add(
-          new NameValuePair("last_name", serviceRequest.getLast_name()));
+              new NameValuePair("last_name", serviceRequest.getLast_name()));
     }
 
     if (serviceRequest.getPhone() != null
-        && "".equals(serviceRequest.getPhone()) == false)
+            && "".equals(serviceRequest.getPhone()) == false)
       nameValuePairs.add(new NameValuePair("phone", serviceRequest.getPhone()));
 
     nameValuePairs.add(new NameValuePair("email", serviceRequest.getEmail()));
 
     if (serviceRequest.getDevice_id() != null)
       nameValuePairs.add(
-          new NameValuePair("device_id", serviceRequest.getDevice_id()));
+              new NameValuePair("device_id", serviceRequest.getDevice_id()));
 
     return nameValuePairs;
   }
@@ -203,19 +203,19 @@ public class Open311UrlUtil {
    * @throws java.io.UnsupportedEncodingException
    */
   public static List<NameValuePair> prepareNameValuePairs(
-      ServiceListRequest serviceListRequest)
+          ServiceListRequest serviceListRequest)
           throws UnsupportedEncodingException {
     List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
     if (serviceListRequest.getJurisdictionId() != null) {
       nameValuePairs.add(new NameValuePair("jurisdiction_id",
-          serviceListRequest.getJurisdictionId()));
+              serviceListRequest.getJurisdictionId()));
     } else if (serviceListRequest.getLatitude() != null
-        && serviceListRequest.getLongitude() != null) {
+            && serviceListRequest.getLongitude() != null) {
       nameValuePairs.add(new NameValuePair("lat",
-          serviceListRequest.getLatitude().toString()));
+              serviceListRequest.getLatitude().toString()));
       nameValuePairs.add(new NameValuePair("long",
-          serviceListRequest.getLongitude().toString()));
+              serviceListRequest.getLongitude().toString()));
     }
 
     return nameValuePairs;
@@ -229,61 +229,61 @@ public class Open311UrlUtil {
    * @throws java.io.UnsupportedEncodingException
    */
   public static List<NameValuePair> prepareNameValuePairs(
-      ServiceDescriptionRequest serviceDescriptionRequest)
+          ServiceDescriptionRequest serviceDescriptionRequest)
           throws UnsupportedEncodingException {
     List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
     if (serviceDescriptionRequest.getJurisdictionId() != null) {
       nameValuePairs.add(new NameValuePair("jurisdiction_id",
-          serviceDescriptionRequest.getJurisdictionId()));
+              serviceDescriptionRequest.getJurisdictionId()));
     } else if (serviceDescriptionRequest.getLatitude() != null
-        && serviceDescriptionRequest.getLongitude() != null) {
+            && serviceDescriptionRequest.getLongitude() != null) {
       nameValuePairs.add(new NameValuePair("lat",
-          serviceDescriptionRequest.getLatitude().toString()));
+              serviceDescriptionRequest.getLatitude().toString()));
       nameValuePairs.add(new NameValuePair("long",
-          serviceDescriptionRequest.getLongitude().toString()));
+              serviceDescriptionRequest.getLongitude().toString()));
     }
     return nameValuePairs;
   }
 
   /**
    * Creates http entity for serviceInfoRequest
-   * 
+   *
    * @param serviceInfoRequest
    * @return name value pairs
    */
   public static List<NameValuePair> prepareNameValuePairs(
-      ServiceInfoRequest serviceInfoRequest) {
+          ServiceInfoRequest serviceInfoRequest) {
     List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
     if (serviceInfoRequest.getJurisdictionId() != null) {
       nameValuePairs.add(new NameValuePair("jurisdiction_id",
-          serviceInfoRequest.getJurisdictionId()));
+              serviceInfoRequest.getJurisdictionId()));
     } else if (serviceInfoRequest.getLatitude() != null
-        && serviceInfoRequest.getLongitude() != null) {
+            && serviceInfoRequest.getLongitude() != null) {
       nameValuePairs.add(new NameValuePair("lat",
-          serviceInfoRequest.getLatitude().toString()));
+              serviceInfoRequest.getLatitude().toString()));
       nameValuePairs.add(new NameValuePair("long",
-          serviceInfoRequest.getLongitude().toString()));
+              serviceInfoRequest.getLongitude().toString()));
     }
     if (serviceInfoRequest.getServiceRequestId() != null) {
       nameValuePairs.add(new NameValuePair("service_request_id",
-          serviceInfoRequest.getServiceRequestId()));
+              serviceInfoRequest.getServiceRequestId()));
     }
     if (serviceInfoRequest.getServiceCode() != null) {
       nameValuePairs.add(new NameValuePair("service_code",
-          serviceInfoRequest.getServiceCode()));
+              serviceInfoRequest.getServiceCode()));
     }
     if (serviceInfoRequest.getStartDate() != null) {
       nameValuePairs.add(
-          new NameValuePair("start_date", serviceInfoRequest.getStartDate()));
+              new NameValuePair("start_date", serviceInfoRequest.getStartDate()));
     }
     if (serviceInfoRequest.getEndDate() != null) {
       nameValuePairs.add(
-          new NameValuePair("end_date", serviceInfoRequest.getEndDate()));
+              new NameValuePair("end_date", serviceInfoRequest.getEndDate()));
     }
     if (serviceInfoRequest.getStatus() != null) {
       nameValuePairs.add(
-          new NameValuePair("status", serviceInfoRequest.getStatus()));
+              new NameValuePair("status", serviceInfoRequest.getStatus()));
     }
     return nameValuePairs;
   }

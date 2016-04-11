@@ -6,16 +6,16 @@ public class ServiceInfo extends Open311BaseModel {
 
   private String description;
   private String address;
-  
+
   @JsonProperty(value = "lat")
   private String latitude;
   @JsonProperty(value = "long")
   private String longitude;
-  
+
   private String service_request_id;
   private String requested_datetime;
   private String updated_datetime;
-//  private String long;
+  //  private String long;
   private String service_code;
   private String zipcode;
   private String status;
@@ -26,7 +26,7 @@ public class ServiceInfo extends Open311BaseModel {
   private String address_id;
   private String service_notice;
   private String status_notes;
-  
+
   public ServiceInfo() {
   }
 

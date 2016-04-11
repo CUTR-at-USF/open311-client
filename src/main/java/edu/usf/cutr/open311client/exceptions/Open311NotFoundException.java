@@ -18,7 +18,7 @@ package edu.usf.cutr.open311client.exceptions;
 
 /**
  * Can be thrown if open311 is not specified
- * 
+ *
  * @author Cagri Cetin
  */
 public class Open311NotFoundException extends IllegalStateException {

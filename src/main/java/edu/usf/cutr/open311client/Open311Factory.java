@@ -22,20 +22,21 @@ import edu.usf.cutr.open311client.models.Open311Option;
 
 /**
  * Creates open311 instances with different configurations
+ *
  * @author Cagri Cetin
  */
 public class Open311Factory {
 
-    public Open311 getOpen311(Open311Option open311Option){
+  public Open311 getOpen311(Open311Option open311Option) {
 
-        if(open311Option.getBaseUrl() == null){
-            throw new Open311NotInitializedException();
-        }else if(open311Option.getBaseUrl().contains(Open311Type.SEECLICKFIX.toString().toLowerCase())){
-            open311Option.setOpen311Type(Open311Type.SEECLICKFIX);
-            return new Open311(open311Option);
-        }else {
-            open311Option.setOpen311Type(Open311Type.DEFAULT);
-            return new Open311(open311Option);
-        }
+    if (open311Option.getBaseUrl() == null) {
+      throw new Open311NotInitializedException();
+    } else if (open311Option.getBaseUrl().contains(Open311Type.SEECLICKFIX.toString().toLowerCase())) {
+      open311Option.setOpen311Type(Open311Type.SEECLICKFIX);
+      return new Open311(open311Option);
+    } else {
+      open311Option.setOpen311Type(Open311Type.DEFAULT);
+      return new Open311(open311Option);
     }
+  }
 }

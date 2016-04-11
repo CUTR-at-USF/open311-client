@@ -19,7 +19,7 @@ package edu.usf.cutr.open311client.exceptions;
 /**
  * Can be thrown, if base url is not passed as an argument when initializing
  * open311.
- * 
+ *
  * @author Cagri Cetin
  */
 public class Open311NotInitializedException extends IllegalStateException {
