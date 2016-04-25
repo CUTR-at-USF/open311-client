@@ -4,7 +4,7 @@
 
     <groupId>edu.usf.cutr</groupId>
     <artifactId>open311client</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <build>
         <plugins>
             <plugin>
@@ -38,6 +38,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
