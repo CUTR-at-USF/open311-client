@@ -28,7 +28,7 @@
 
     <distributionManagement>
         <repository>
-            <id>CagriMaven</id>
+            <id>jCenter</id>
             <url>https://api.bintray.com/maven/cutr-at-usf/cutr-mvn-repo/open311client/;publish=1</url>
         </repository>
     </distributionManagement>
