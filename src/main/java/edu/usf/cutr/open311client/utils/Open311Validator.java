@@ -97,7 +97,7 @@ public class Open311Validator {
   private static boolean findAttribute(List<Open311AttributePair> attributes,
                                        Integer code) {
     for (Open311AttributePair attribute : attributes) {
-      if (attribute.getCode() == code) {
+      if (attribute.getCode() == code && !Open311StringUtils.isEmpty(attribute.getValue())) {
         return true;
       }
     }
