@@ -80,7 +80,7 @@ We need to specify the URL from which to distribute your project.
 ```
 
 ###### 3 - Setup your setting.xml
-We need to provide Bintray username and API Key to the Maven `settings.xml` file.
+We need to provide Bintray username and API Key to the Maven `settings.xml` file.  This may be under your Maven installation directory (e.g., `C:\Program Files\Apache Software Foundation\apache-maven-3.2.5\conf`).
 
 ```
 <server>
